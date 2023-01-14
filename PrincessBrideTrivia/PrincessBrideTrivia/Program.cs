@@ -18,6 +18,10 @@ namespace PrincessBrideTrivia
                 {
                     numberCorrect++;
                 }
+                else
+                {
+                    OfferCorrectAnswer(questions[i]);
+                }
             }
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
         }
@@ -50,6 +54,32 @@ namespace PrincessBrideTrivia
 
             Console.WriteLine("Incorrect");
             return false;
+        }
+
+        public static void OfferCorrectAnswer(Question question)
+        {
+            string wantsAnswer = "";
+
+            Console.WriteLine("Would you like to see the correct answer? Type Y or N");
+            wantsAnswer = Console.ReadLine();
+            wantsAnswer = wantsAnswer.ToLower();
+
+            while (!wantsAnswer.Equals("y") && !wantsAnswer.Equals("n"))
+            {
+                Console.WriteLine("Would you like to see the correct answer? Type Y or N");
+                wantsAnswer = Console.ReadLine();
+                wantsAnswer = wantsAnswer.ToLower();
+            }
+
+            if (wantsAnswer.Equals("y"))
+            {
+                Console.WriteLine("Correct Answer: " + GetCorrectAnswer(question));
+            }
+        }
+
+        public static string GetCorrectAnswer(Question question)
+        {
+           return question.Answers[int.Parse(question.CorrectAnswerIndex) - 1];
         }
 
         public static void DisplayQuestion(Question question)
