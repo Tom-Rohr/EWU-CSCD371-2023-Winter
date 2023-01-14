@@ -10,7 +10,7 @@ namespace PrincessBrideTrivia
             string filePath = GetFilePath();
             Question[] questions = LoadQuestions(filePath);
 
-            int numberCorrect = 0;
+            double numberCorrect = 0;
             for (int i = 0; i < questions.Length; i++)
             {
                 bool result = AskQuestion(questions[i]);
@@ -18,11 +18,15 @@ namespace PrincessBrideTrivia
                 {
                     numberCorrect++;
                 }
+                else
+                {
+                    OfferCorrectAnswer(questions[i]);
+                }
             }
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
         }
 
-        public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
+        public static string GetPercentCorrect(double numberCorrectAnswers, int numberOfQuestions)
         {
             return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
         }
@@ -50,6 +54,32 @@ namespace PrincessBrideTrivia
 
             Console.WriteLine("Incorrect");
             return false;
+        }
+
+        public static void OfferCorrectAnswer(Question question)
+        {
+            string wantsAnswer = "";
+
+            Console.WriteLine("Would you like to see the correct answer? Type Y or N");
+            wantsAnswer = Console.ReadLine();
+            wantsAnswer = wantsAnswer.ToLower();
+
+            while (!wantsAnswer.Equals("y") && !wantsAnswer.Equals("n"))
+            {
+                Console.WriteLine("Would you like to see the correct answer? Type Y or N");
+                wantsAnswer = Console.ReadLine();
+                wantsAnswer = wantsAnswer.ToLower();
+            }
+
+            if (wantsAnswer.Equals("y"))
+            {
+                Console.WriteLine("Correct Answer: " + GetCorrectAnswer(question));
+            }
+        }
+
+        public static string GetCorrectAnswer(Question question)
+        {
+           return question.Answers[int.Parse(question.CorrectAnswerIndex) - 1];
         }
 
         public static void DisplayQuestion(Question question)
@@ -89,6 +119,8 @@ namespace PrincessBrideTrivia
                 question.Answers[1] = answer2;
                 question.Answers[2] = answer3;
                 question.CorrectAnswerIndex = correctAnswerIndex;
+
+                questions[i] = question;
             }
             return questions;
         }

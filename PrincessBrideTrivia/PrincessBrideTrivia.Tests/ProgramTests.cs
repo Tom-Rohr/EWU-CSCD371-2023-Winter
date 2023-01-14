@@ -86,5 +86,18 @@ namespace PrincessBrideTrivia.Tests
                 File.AppendAllLines(filePath, lines);
             }
         }
+
+        [TestMethod]
+        public void OfferCorrectAnswer_ReturnsCorrectAnswer()
+        {
+            Question testQuestion = new Question();
+            testQuestion.Text = "What color is the sky?";
+            testQuestion.Answers = new string[] {"Red", "Orange", "Blue" };
+            testQuestion.CorrectAnswerIndex = "2";
+
+            string correctAnswer = Program.GetCorrectAnswer(testQuestion);
+
+            Assert.AreEqual(correctAnswer, testQuestion.Answers[int.Parse(testQuestion.CorrectAnswerIndex)-1]);
+        }
     }
 }
