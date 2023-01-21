@@ -9,8 +9,4 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
-  <PropertyGroup>
-	<LangVersion>11.0</LangVersion>
-  </PropertyGroup>
-
 </Project>
