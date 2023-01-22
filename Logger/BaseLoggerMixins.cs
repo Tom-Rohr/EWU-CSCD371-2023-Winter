@@ -13,7 +13,7 @@ namespace Logger
             string.Format(message, args);
             logger.Log(LogLevel.Error, message);
         }
-        public static void Warning(this BaseLogger logger, string message, string[] args)
+        public static void Warning(this BaseLogger logger, string message, params string[] args)
         {
             if (logger is null)
             {
