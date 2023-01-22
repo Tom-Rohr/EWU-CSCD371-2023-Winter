@@ -1,4 +1,5 @@
-﻿using System.Security.AccessControl;
+﻿using System.IO;
+using System.Security.AccessControl;
 
 namespace Logger
 {
@@ -7,11 +8,11 @@ namespace Logger
         private string? _Path;
         public BaseLogger CreateLogger(string className)
         {
-            if (_Path == null)
+            if (_Path is null)
             {
                 return null!;
             }
-            BaseLogger logger = new FileLogger(_Path) { ClassName = className }; //Object initializer for ClassName
+            BaseLogger logger = new FileLogger(_Path!) { ClassName = className }; //Object initializer for ClassName
             return logger;
         }
         public void ConfigureFileLogger(string path)
