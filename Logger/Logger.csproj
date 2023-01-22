@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
 	<LangVersion>11.0</LangVersion>
 	<Nullable>enable</Nullable>
-	<TreatWarningsAsErrors>enable</TreatWarningsAsErrors>
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>

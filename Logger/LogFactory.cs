@@ -11,7 +11,7 @@ namespace Logger
             {
                 return null!;
             }
-            BaseLogger logger = new FileLogger(_Path) { ClassName= className }; //Object initializer for ClassName
+            BaseLogger logger = new FileLogger(_Path) { ClassName = className }; //Object initializer for ClassName
             return logger;
         }
         public void ConfigureFileLogger(string path)
