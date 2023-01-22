@@ -10,7 +10,7 @@ namespace Logger
             {
                 throw new ArgumentNullException(nameof(logger));
             }
-            string.Format(message, args);
+            message = string.Format(message, args);
             logger.Log(LogLevel.Error, message);
         }
         public static void Warning(this BaseLogger logger, string message, params object[] args)
@@ -19,7 +19,7 @@ namespace Logger
             {
                 throw new ArgumentNullException(nameof(logger));
             }
-            string.Format(message, args);
+            message = string.Format(message, args);
             logger.Log(LogLevel.Warning, message);
         }
         public static void Information(this BaseLogger logger, string message, params object[] args)
@@ -28,7 +28,7 @@ namespace Logger
             {
                 throw new ArgumentNullException(nameof(logger));
             }
-            string.Format(message, args);
+            message = string.Format(message, args);
             logger.Log(LogLevel.Information, message);
         }
         public static void Debug( this BaseLogger logger, string message, params object[] args)
@@ -37,7 +37,7 @@ namespace Logger
             {
                 throw new ArgumentNullException(nameof(logger));
             }
-            string.Format(message, args);
+            message = string.Format(message, args);
             logger.Log(LogLevel.Debug, message);
         }
     }
