@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,16 @@ namespace Logger
 {
     public class FileLogger : BaseLogger
     {
-        public string Path { get; }
+        private string _Path { get; }
+
+        public FileLogger(string path)
+        {
+            this._Path = path;
+            if (File.Exists(path) is false)
+            {
+                File.Create(path);
+            }
+        }
         public override void Log(LogLevel logLevel, string message)
         {
             throw new NotImplementedException();
