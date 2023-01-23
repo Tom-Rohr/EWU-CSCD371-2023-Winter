@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 
 namespace Logger.Tests
@@ -9,14 +10,17 @@ namespace Logger.Tests
         [TestMethod]
         public void FileLogger_OnCreation_HasCallingClassName()
         {
-            string testPath = "C:\\Users\\Tom\\Desktop\\Assignment2Test.txt";
+            string testPath = Path.Combine(Directory.GetCurrentDirectory(), "testLog.txt");
+
             LogFactory factory = new();
             factory.ConfigureFileLogger(testPath);
             BaseLogger logger = factory.CreateLogger(GetType().Name);
-            //logger.Log(LogLevel.Information, "this is test message #1");
-            //logger.Log(LogLevel.Information, "this is test message #2");
+
+            logger.Log(LogLevel.Information, "this is test message #1");
+            logger.Log(LogLevel.Information, "this is test message #2");
 
             Assert.AreEqual(logger.ClassName, GetType().Name);
         }
+
     }
 }

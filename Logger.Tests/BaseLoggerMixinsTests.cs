@@ -35,6 +35,8 @@ namespace Logger.Tests
             Assert.AreEqual("Message 42 42", logger.LoggedMessages[0].Message);
         }
 
+
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Warning_WithNullLogger_ThrowsException()
@@ -62,6 +64,8 @@ namespace Logger.Tests
             Assert.AreEqual("Message 42 42", logger.LoggedMessages[0].Message);
         }
 
+
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Information_WithNullLogger_ThrowsException()
@@ -88,6 +92,8 @@ namespace Logger.Tests
             Assert.AreEqual(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
             Assert.AreEqual("Message 42 42", logger.LoggedMessages[0].Message);
         }
+
+
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]

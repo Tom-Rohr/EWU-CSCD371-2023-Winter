@@ -14,11 +14,8 @@ namespace Logger
         public FileLogger(string path)
         {
             this._Path = path;
-            if (File.Exists(path) is false)
-            {
-                File.Create(path);
-            }
         }
+
         public override void Log(LogLevel logLevel, string message)
         {
             StreamWriter writer = File.AppendText(_Path!);

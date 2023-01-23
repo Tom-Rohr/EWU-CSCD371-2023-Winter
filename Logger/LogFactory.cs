@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Security.AccessControl;
+﻿using System;
+using System.IO;
 
 namespace Logger
 {
@@ -19,6 +19,5 @@ namespace Logger
         {
             this._Path = path;
         }
-
     }
 }
