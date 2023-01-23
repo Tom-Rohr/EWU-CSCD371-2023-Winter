@@ -11,7 +11,7 @@ namespace Logger.Tests
         {
             string testPath = Path.Combine(Directory.GetCurrentDirectory(), "testLog.txt");
 
-            LogFactory factory = new LogFactory();
+            LogFactory factory = new();
             factory.ConfigureFileLogger(testPath);
 
             Assert.AreEqual(true, Path.Exists(testPath));
@@ -21,7 +21,7 @@ namespace Logger.Tests
         {
             string testPath = Path.Combine(Directory.GetCurrentDirectory(), "nonExistantFile.txt");
 
-            LogFactory factory = new LogFactory();
+            LogFactory factory = new();
             factory.ConfigureFileLogger(testPath);
 
             Assert.AreEqual(false, Path.Exists(testPath));
@@ -31,7 +31,7 @@ namespace Logger.Tests
         {
             string testPath = Path.Combine(Directory.GetCurrentDirectory(), "testLog.txt");
 
-            LogFactory factory = new LogFactory();
+            LogFactory factory = new();
             factory.ConfigureFileLogger(testPath);
             BaseLogger logger = factory.CreateLogger("FileLogger");
 
@@ -41,7 +41,7 @@ namespace Logger.Tests
         [TestMethod]
         public void LogFactory_CreateLogger_ReturnsNullIfNotConfigured()
         {
-            LogFactory factory = new LogFactory();
+            LogFactory factory = new();
 
             Assert.AreEqual(null, factory.CreateLogger("FileLogger"));
         }
