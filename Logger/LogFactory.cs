@@ -1,23 +1,20 @@
-﻿using System;
-using System.IO;
+﻿namespace Logger;
 
-namespace Logger
+
+public class LogFactory
 {
-    public class LogFactory
+    private string? _Path;
+    public BaseLogger CreateLogger(string className)
     {
-        private string? _Path;
-        public BaseLogger CreateLogger(string className)
+        if (_Path is null)
         {
-            if (_Path is null)
-            {
-                return null!;
-            }
-            BaseLogger logger = new FileLogger(_Path!) { ClassName = className }; //Object initializer for ClassName
-            return logger;
+            return null!;
         }
-        public void ConfigureFileLogger(string path)
-        {
-            this._Path = path;
-        }
+        BaseLogger logger = new FileLogger(_Path!) { ClassName = className }; //Object initializer for ClassName
+        return logger;
+    }
+    public void ConfigureFileLogger(string path)
+    {
+        this._Path = path;
     }
 }

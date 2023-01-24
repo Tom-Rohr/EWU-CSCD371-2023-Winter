@@ -1,9 +1,8 @@
-﻿namespace Logger
-{
-    public abstract class BaseLogger
-    {
-        public string? ClassName { get; set; } //Auto-property
+﻿namespace Logger;
 
-        public abstract void Log(LogLevel logLevel, string message);
-    }
+public abstract class BaseLogger
+{
+    public string? ClassName { get; set; } //Auto-property
+
+    public abstract void Log(LogLevel logLevel, string message);
 }
