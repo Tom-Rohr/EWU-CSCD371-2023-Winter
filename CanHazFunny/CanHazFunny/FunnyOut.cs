@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny;
 
-public interface IFunnyOut
+public class FunnyOut : IFunnyOut
 {
-    abstract void PrintJokeToConsole(string joke);
+    public void PrintJokeToConsole(string joke)
+    {
+        Console.WriteLine(joke);
+    }
 }

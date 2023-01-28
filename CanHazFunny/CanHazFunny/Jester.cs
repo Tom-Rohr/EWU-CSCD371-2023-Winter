@@ -6,14 +6,44 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny;
 
-public class Jester : IJokeService, IFunnyOut
+public class Jester
 {
-    private JokeService jokeService = new();
-    private string? _Joke { get; set; }
+    public JokeService JokeService
+    {
+        get { return _JokeService!; }
+        set { _JokeService = value; }
+    }
+    private JokeService? _JokeService;
+    public FunnyOut JokeWriter
+    {
+        get { return _JokeWriter!; }
+        set { _JokeWriter = value; }
+    }
+    private FunnyOut? _JokeWriter;
+    public string Joke
+    {
+        get { return _Joke!; }
+        set { _Joke = value;}
+    }
+    private string? _Joke;
+
+    public Jester(JokeService jokeService, FunnyOut jokeWriter)
+    {
+        if(jokeService is null)
+        {
+            throw new ArgumentNullException("jokeService passed to Jester contructor cannot be null.");
+        }
+        this.JokeService = jokeService;
+        if(jokeWriter is null)
+        {
+            throw new ArgumentNullException("joke passed to Jester constructor cannot be null.");
+        }
+        this.JokeWriter = jokeWriter;
+    }
 
     public void TellJoke()
     {
-        this._Joke = jokeService.GetJoke();
-        ((IFunnyOut)this).PrintJokeToConsole(this._Joke); 
+        this.Joke = JokeService.GetJoke();
+        this.JokeWriter.PrintJokeToConsole(this.Joke); 
     }
 }

@@ -11,7 +11,7 @@ public interface IJokeService
 {
     bool CheckForChuckNorris(string joke)
     {
-        if (joke.Contains("Chuck Norris"))
+        if (joke.Contains("Chuck") || joke.Contains("Norris") || joke.Contains("Walker"))
         {
             return true;
         }
