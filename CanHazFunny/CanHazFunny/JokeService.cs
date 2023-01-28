@@ -12,7 +12,7 @@ public class JokeService : IJokeService
 
         do
         {
-            joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+            joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
         } while (((IJokeService)this).CheckForChuckNorris(joke) is true);
         
         return joke;
