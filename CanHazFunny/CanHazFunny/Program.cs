@@ -8,8 +8,12 @@ class Program
     {
         //Feel free to use your own setup here - this is just provided as an example
         //new Jester(new SomeReallyCoolOutputClass(), new SomeJokeServiceClass()).TellJoke();
-        JokeService jokeService = new();
-        Console.WriteLine(jokeService.GetJoke());
+        Jester joker = new();
+        
+        for(int i=0; i<10; i++)
+        {
+            joker.TellJoke();
+        }
 
     }
 }
