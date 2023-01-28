@@ -20,12 +20,6 @@ public class Jester
         set { _JokeWriter = value; }
     }
     private FunnyOut? _JokeWriter;
-    public string Joke
-    {
-        get { return _Joke!; }
-        set { _Joke = value;}
-    }
-    private string? _Joke;
 
     public Jester(JokeService jokeService, FunnyOut jokeWriter)
     {
@@ -43,7 +37,7 @@ public class Jester
 
     public void TellJoke()
     {
-        this.Joke = JokeService.GetJoke();
-        this.JokeWriter.PrintJokeToConsole(this.Joke); 
+        this.JokeWriter.Joke = JokeService.GetJoke();
+        this.JokeWriter.PrintJokeToConsole(this.JokeWriter.Joke); 
     }
 }
