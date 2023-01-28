@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CanHazFunny
+namespace CanHazFunny;
+
+public class Jester : IJokeService, IFunnyOut
 {
-    internal class Jester : IJokeService, IFunnyOut
-    {
-    }
+
 }
