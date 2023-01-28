@@ -35,6 +35,8 @@ public class Jester
         this.JokeWriter = jokeWriter;
     }
 
+    public Jester() { }
+
     public void TellJoke()
     {
         this.JokeWriter.Joke = JokeService.GetJoke();
