@@ -45,5 +45,18 @@ namespace Logger.Tests
 
             Assert.AreEqual(null, factory.CreateLogger("FileLogger"));
         }
+        [TestMethod]
+        public void ConsoleLogger_OnCreation_SetsClassName()
+        {
+            //Arrange
+
+            //Act
+            LogFactory factory = new();
+            BaseLogger logger = factory.CreateConsoleLogger(nameof(LogFactoryTests));
+            string name = logger.ClassName!;
+
+            //Assert
+            Assert.AreEqual(name, nameof(LogFactoryTests));
+        }
     }
 }

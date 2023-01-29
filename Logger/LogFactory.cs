@@ -11,12 +11,12 @@ public class LogFactory
         {
             return null!;
         }
-        BaseLogger logger = new FileLogger(_Path!) { ClassName = className }; //Object initializer for ClassName
+        BaseLogger logger = new FileLogger(_Path!) { ClassName = className };
         return logger;
     }
     public void ConfigureFileLogger(string path)
     {
-        this._Path = path;
+        _Path = path;
     }
     public BaseLogger CreateConsoleLogger(string className)
     {
