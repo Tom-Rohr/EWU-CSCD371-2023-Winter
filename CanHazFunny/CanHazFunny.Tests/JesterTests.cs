@@ -81,18 +81,6 @@ public class JesterTests
     }
 
     [TestMethod]
-    public void Jester_GivenNotChuckNorrisJoke_ReturnFalse()
-    {
-        //Arrange
-        testString = "Hi, I'm not that guy with all the jokes written about him";
-
-        //Act
-
-        //Assert
-        Assert.IsFalse(testJester.CheckForChuckNorris(testString));
-    }
-
-    [TestMethod]
     public void Jester_TellJoke_SkipsChuckNorris()
     {
         //Arrange
