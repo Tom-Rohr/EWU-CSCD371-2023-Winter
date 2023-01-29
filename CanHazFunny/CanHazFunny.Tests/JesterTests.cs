@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Diagnostics.Metrics;
 
 namespace CanHazFunny.Tests;
 
@@ -10,8 +9,8 @@ public class JesterTests
 {
     private string testString = "";
     private Jester testJester = new();
-    private JokeService jokeService = new();
-    private FunnyOut jokeWriter = new();
+    private IJokeService jokeService = new JokeService();
+    private IFunnyOut jokeWriter = new FunnyOut();
 
     [TestInitialize]
     public void TestSetup()
@@ -24,9 +23,6 @@ public class JesterTests
     public void TestCleanup()
     {
         testString = "";
-        testJester = new();
-        jokeService = new();
-        jokeWriter = new();
     }
 
     [TestMethod]
@@ -37,7 +33,7 @@ public class JesterTests
         //Act
 
         //Assert
-        Assert.AreEqual<JokeService>(testJester.JokeService, jokeService);
+        Assert.AreEqual<IJokeService>(testJester.JokeService, jokeService);
     }
 
     [TestMethod]
@@ -48,7 +44,7 @@ public class JesterTests
         //Act
 
         //Assert
-        Assert.AreEqual<FunnyOut>(testJester.JokeWriter, jokeWriter);
+        Assert.AreEqual<IFunnyOut>(testJester.JokeWriter, jokeWriter);
     }
 
     [TestMethod]
@@ -94,5 +90,28 @@ public class JesterTests
 
         //Assert
         Assert.IsFalse(testJester.CheckForChuckNorris(testString));
+    }
+
+    [TestMethod]
+    public void Jester_TellJoke_SkipsChuckNorris()
+    {
+        //Arrange
+        var mockService = new Mock<IJokeService>();
+        mockService.SetupSequence(x => x.GetJoke())
+            .Returns("Chuck Norris")
+            .Returns("test");
+        IJokeService jokeService = mockService.Object;
+
+        var mockWriter = new Mock<IFunnyOut>();
+        mockWriter.Setup(x => x.PrintJokeToConsole("test")).Verifiable();
+        IFunnyOut jokeWriter = mockWriter.Object;
+
+        Jester jester = new(jokeService, jokeWriter);
+
+        //Act
+        jester.TellJoke();
+
+        //Assert
+        mockWriter.Verify(x => x.PrintJokeToConsole("test"), Times.Once);
     }
 }

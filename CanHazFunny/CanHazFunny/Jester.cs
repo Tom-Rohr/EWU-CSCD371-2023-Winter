@@ -8,37 +8,38 @@ namespace CanHazFunny;
 
 public class Jester
 {
-    public JokeService JokeService
+    public IJokeService JokeService
     {
         get { return _JokeService!; }
         set { _JokeService = value; }
     }
-    private JokeService? _JokeService;
-    public FunnyOut JokeWriter
+    private IJokeService? _JokeService;
+    public IFunnyOut JokeWriter
     {
         get { return _JokeWriter!; }
         set { _JokeWriter = value; }
     }
-    private FunnyOut? _JokeWriter;
+    private IFunnyOut? _JokeWriter;
 
-    public Jester(JokeService jokeService, FunnyOut jokeWriter)
+    public Jester(IJokeService jokeService, IFunnyOut jokeWriter)
     {
         if(jokeService is null)
         {
-            throw new ArgumentNullException("jokeService passed to Jester contructor cannot be null.");
+            throw new ArgumentNullException("IJokeService passed to Jester contructor cannot be null.");
         }
         this.JokeService = jokeService;
         if(jokeWriter is null)
         {
-            throw new ArgumentNullException("joke passed to Jester constructor cannot be null.");
+            throw new ArgumentNullException("IFunnyOut passed to Jester constructor cannot be null.");
         }
         this.JokeWriter = jokeWriter;
     }
 
     public Jester() { }
 
-    public void TellJoke(out string joke)
+    public void TellJoke()
     {
+        string joke;
         do
         {
             joke = JokeService.GetJoke();
