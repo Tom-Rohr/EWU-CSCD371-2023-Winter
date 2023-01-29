@@ -34,8 +34,6 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual("Message 42 42", logger.LoggedMessages[0].Message);
     }
 
-
-
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Warning_WithNullLogger_ThrowsException()
@@ -62,8 +60,6 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(LogLevel.Warning, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42 42", logger.LoggedMessages[0].Message);
     }
-
-
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
@@ -131,4 +127,3 @@ public class TestLogger : BaseLogger
         LoggedMessages.Add((logLevel, message));
     }
 }
-
