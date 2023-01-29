@@ -81,7 +81,7 @@ public class JesterTests
         //Act
 
         //Assert
-        Assert.IsTrue(((IJokeService)testJester.JokeService).CheckForChuckNorris(testString));
+        Assert.IsTrue(testJester.CheckForChuckNorris(testString));
     }
 
     [TestMethod]
@@ -93,6 +93,6 @@ public class JesterTests
         //Act
 
         //Assert
-        Assert.IsFalse(((IJokeService)testJester.JokeService).CheckForChuckNorris(testString));
+        Assert.IsFalse(testJester.CheckForChuckNorris(testString));
     }
 }

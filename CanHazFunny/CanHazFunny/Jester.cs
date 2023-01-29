@@ -37,9 +37,17 @@ public class Jester
 
     public Jester() { }
 
-    public void TellJoke()
+    public void TellJoke(out string joke)
     {
-        this.JokeWriter.Joke = JokeService.GetJoke();
-        this.JokeWriter.PrintJokeToConsole(this.JokeWriter.Joke); 
+        do
+        {
+            joke = JokeService.GetJoke();
+        } while (CheckForChuckNorris(joke) is true);
+
+        JokeWriter.PrintJokeToConsole(joke);
+    }
+    public bool CheckForChuckNorris(string joke)
+    {
+        return (joke.Contains("Chuck") || joke.Contains("Norris") || joke.Contains("Walker"));
     }
 }
