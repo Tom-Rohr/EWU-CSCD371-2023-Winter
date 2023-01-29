@@ -1,6 +1,5 @@
 ﻿namespace Logger;
 
-
 public class LogFactory
 {
     private string? _Path;

@@ -1,6 +1,5 @@
 ﻿namespace Logger;
 
-
 public enum LogLevel
 {
     Error,

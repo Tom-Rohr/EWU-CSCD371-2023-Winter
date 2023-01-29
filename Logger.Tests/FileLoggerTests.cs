@@ -39,5 +39,4 @@ public class FileLoggerTests
         //Assert
         Assert.AreEqual(testMessage, readLine);
     }
-
 }
