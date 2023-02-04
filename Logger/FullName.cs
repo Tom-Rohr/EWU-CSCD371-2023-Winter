@@ -17,6 +17,7 @@ public record struct FullName(string FirstName, string LastName, string? MiddleN
 
     public override string ToString()
     {
+        if (MiddleName == null) return FirstName + " " + LastName;
         return FirstName + " " + MiddleName + " " + LastName;
     }
 }
