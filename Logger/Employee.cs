@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public record class Employee :Entity
+public record class Employee(FullName FName) : Entity
 {
+    public override string Name { get; set; } = FName.ToString() ?? throw new ArgumentNullException(nameof(FName));
 }
