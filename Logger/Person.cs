@@ -6,7 +6,7 @@
 
         public override string ToString()
         {
-            return String.Format("ID: {0}, Full Name: {1} {2} {3}", Id, FName.FirstName, FName.MiddleName, FName.LastName);
+            return String.Format(", Full Name: " + Name);
         }
         public virtual bool Equals(Person? other)
         {

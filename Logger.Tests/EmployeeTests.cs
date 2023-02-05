@@ -9,7 +9,7 @@ public class EmployeeTests
     public void Employee_SetsFullName_Success()
     {
         FullName testName = new("Michael", "Scott", "Gary");
-        Employee testEmployee = new(testName);
+        Employee testEmployee = new(1, testName);
 
         Assert.AreEqual(testEmployee.FName.ToString(), ("Michael Gary Scott"));
     }

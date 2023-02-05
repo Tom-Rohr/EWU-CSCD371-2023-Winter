@@ -9,7 +9,7 @@ public class StudentTests
     public void Student_SetsFullName_Success()
     {
         FullName testName = new("Michael","Scott","Gary");
-        Student testStudent = new(testName);
+        Student testStudent = new(1, testName);
 
         Assert.AreEqual(testStudent.Name, "Michael Gary Scott");
     }
@@ -18,8 +18,8 @@ public class StudentTests
     public void TwoStudends_SameName_EqualityIsFalse()
     {
         FullName testName = new("Michael", "Scott", "Gary");
-        Student testStudent = new(testName);
-        Student testStudent2 = new(testName);
+        Student testStudent = new(1, testName);
+        Student testStudent2 = new(2, testName);
 
         Assert.IsFalse(testStudent2.Equals(testStudent)); //Same name, different guid
         Assert.IsTrue(testStudent.Equals(testStudent));
@@ -29,12 +29,8 @@ public class StudentTests
     public void Student_OverridenToStringFormat_Correct()
     {
         FullName testName = new("Michael", "Scott", "Gary");
-        Student testStudent = new(testName);
-        string expected = String.Format("ID: {0}, Full Name: {1} {2} {3}",
-            testStudent.Id.ToString(), 
-            testStudent.FName.FirstName, 
-            testStudent.FName.MiddleName, 
-            testStudent.FName.LastName);
+        Student testStudent = new(1, testName);
+        string expected = String.Format("Student ID: {0}, Full Name: {1}", testStudent.SID, testStudent.FName);  
 
         Assert.AreEqual(expected, testStudent.ToString());
     }
