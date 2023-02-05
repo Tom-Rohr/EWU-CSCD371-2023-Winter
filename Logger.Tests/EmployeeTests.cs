@@ -16,6 +16,6 @@ public class EmployeeTests
         FullName testName = new("Michael", "Scott", "Gary");
         Employee testEmployee = new(testName);
 
-        Assert.AreEqual(testEmployee.FName, "Michael Gary Scott");
+        Assert.AreEqual(testEmployee.FName.ToString(), ("Michael Gary Scott"));
     }
 }
