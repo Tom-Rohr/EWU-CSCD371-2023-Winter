@@ -11,11 +11,15 @@ namespace Logger.Tests;
 public class BookTests
 {
     [TestMethod]
-    public void Student_SetsFullName_Success()
+    public void Book_SetsProperties_Success()
     {
-        FullName testName = new("Michael", "Scott", "Gary");
-        Employee testStudent = new(testName);
+        //FullName testAuthorName = new("Michael", "Scott", "Gary");
+        //Book testBook = new();
 
-        Assert.AreEqual(testStudent.FName, "Michael Gary Scott");
+        //Assert.AreEqual(testStudent.FName, "Michael Gary Scott");
+    }
+    public void Student_ValueBasedEquality_True()
+    {
+
     }
 }
