@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-//A.)Creating a 'record struct' to define a custom value type as opposed to a 'record class' because...
+//A.)Creating a 'record class' to define a custom value type as opposed to a 'record struct' because...
 /////1.) FullNameRecord logically represents up to three values.
 /////2.) It will be immutable.
 /////3.) It is possible/likely a full name will be greater than 16-bytes of data.
