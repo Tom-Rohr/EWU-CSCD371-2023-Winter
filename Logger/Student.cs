@@ -12,6 +12,6 @@ namespace Logger
         public override string ToString() => base.ToString();
         public virtual bool Equals(Student? other) => base.Equals(other);
    
-        public override int GetHashCode() => HashCode.Combine(Id.GetHashCode(), Name.GetHashCode());
+        public override int GetHashCode() => base.GetHashCode();
     }
 }
