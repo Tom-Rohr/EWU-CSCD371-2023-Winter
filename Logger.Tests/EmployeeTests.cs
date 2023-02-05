@@ -6,11 +6,32 @@ namespace Logger.Tests;
 public class EmployeeTests
 {
     [TestMethod]
-    public void Employee_SetsFullName_Success()
+    public void Employee_SetsProperties_Success()
     {
         FullName testName = new("Michael", "Scott", "Gary");
         Employee testEmployee = new(1, testName);
 
         Assert.AreEqual(testEmployee.FName.ToString(), ("Michael Gary Scott"));
+        Assert.AreEqual(testEmployee.EID, 1);
+    }
+
+    [TestMethod]
+    public void Employee_OverridenToStringFormat_Correct()
+    {
+        FullName testName = new("Michael", "Scott", "Gary");
+        Employee testEmployee = new(1, testName);
+        string expected = String.Format("Employee ID: {0}, Full Name: {1}", testEmployee.EID, testEmployee.FName);
+
+        Assert.AreEqual(expected, testEmployee.ToString());
+    }
+
+    [TestMethod]
+    public void Employee_ValueBasedEquality_True()
+    {
+        FullName testName = new("Michael", "Scott", "Gary");
+        Employee testEmployee = new(1, testName);
+        Employee testEmployee2 = new(1, testName);
+
+        Assert.IsTrue(testEmployee.Equals(testEmployee2));
     }
 }

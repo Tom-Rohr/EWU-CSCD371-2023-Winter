@@ -6,23 +6,13 @@ namespace Logger.Tests;
 public class StudentTests
 {
     [TestMethod]
-    public void Student_SetsFullName_Success()
+    public void Student_SetsProperties_Success()
     {
         FullName testName = new("Michael","Scott","Gary");
         Student testStudent = new(1, testName);
 
         Assert.AreEqual(testStudent.Name, "Michael Gary Scott");
-    }
-
-    [TestMethod]
-    public void TwoStudends_SameName_EqualityIsFalse()
-    {
-        FullName testName = new("Michael", "Scott", "Gary");
-        Student testStudent = new(1, testName);
-        Student testStudent2 = new(2, testName);
-
-        Assert.IsFalse(testStudent2.Equals(testStudent)); //Same name, different guid
-        Assert.IsTrue(testStudent.Equals(testStudent));
+        Assert.AreEqual(testStudent.SID, 1);
     }
 
     [TestMethod]
@@ -33,5 +23,15 @@ public class StudentTests
         string expected = String.Format("Student ID: {0}, Full Name: {1}", testStudent.SID, testStudent.FName);  
 
         Assert.AreEqual(expected, testStudent.ToString());
+    }
+
+    [TestMethod]
+    public void Student_ValueBasedEquality_True()
+    {
+        FullName testName = new("Michael", "Scott", "Gary");
+        Student testStudent = new(1, testName);
+        Student testStudent2 = new(1, testName);
+
+        Assert.IsTrue(testStudent.Equals(testStudent2));
     }
 }
