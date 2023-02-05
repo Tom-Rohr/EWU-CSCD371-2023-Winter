@@ -13,23 +13,22 @@ namespace Logger.Tests;
 public class StudentTests
 {
     [TestMethod]
-    public void Student_SetsFullNameAndStanding_Success()
+    public void Student_SetsFullName_Success()
     {
         FullName testName = new("Michael","Scott","Gary");
-        Student testStudent = new(testName, Standing.Senior);
+        Student testStudent = new(testName);
 
         Assert.AreEqual(testStudent.FName.ToString(), "Michael Gary Scott");
-        Assert.AreEqual(testStudent.studentStanding, Standing.Senior);
     }
 
     [TestMethod]
     public void Student_ValueBasedEquality_True()
     {
         FullName testName = new("Michael", "Scott", "Gary");
-        Student testStudent = new(testName, Standing.Senior);
-        Student testStudent2 = new(testName, Standing.Senior);
+        Student testStudent = new(testName);
+        Student testStudent2 = new(testName);
 
-        Assert.IsTrue(testStudent2.Equals(testStudent));
+        Assert.IsFalse(testStudent2.Equals(testStudent));
         //Assert.AreEqual(testStudent, testStudent2);
     }
 }

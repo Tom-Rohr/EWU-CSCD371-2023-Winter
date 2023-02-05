@@ -7,13 +7,13 @@
 /////4.) It will be boxed frequently by the Storage class, so memory overhead will be less than using a value type.
 /////5.) Nothing should need to inherit from this record.
 
-//B.)The Type is immutable because the record declaration is decorated with the 'readonly' modifier, meaning
-/////the positional parameters can only be set in the constructor during initialization and cannot be changed.
+//B.)The Type is immutable because the property declarations are decorated with the 'init' modifier, meaning
+/////the positional parameters can only be set in the constructor or object initializers during initialization and cannot be changed after.
 public record class FullName(string FirstName, string LastName, string? MiddleName = null)
 {
-    public string FirstName { get; } = FirstName??throw new ArgumentNullException(nameof(FirstName));
-    public string LastName { get; } = LastName??throw new ArgumentNullException(nameof(LastName));
-    public string? MiddleName { get; } = MiddleName;
+    public string FirstName { get; init; } = FirstName??throw new ArgumentNullException(nameof(FirstName));
+    public string LastName { get; init; } = LastName??throw new ArgumentNullException(nameof(LastName));
+    public string? MiddleName { get; init; } = MiddleName;
 
     public override string ToString()
     {
