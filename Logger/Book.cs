@@ -12,7 +12,7 @@ public record class Book(string Title, FullName Author, int YearPublished) : Ent
         return (Name, Author, YearPublished) == (other?.Name, other?.Author, other?.YearPublished);
     }
 
-    public override int GetHashCode() =>  HashCode.Combine(Title.GetHashCode(), Author.GetHashCode()) + YearPublished;
+    public override int GetHashCode() =>  HashCode.Combine(Title.GetHashCode(), Author.GetHashCode(), YearPublished.GetHashCode());
 
     public override string ToString()
     {

@@ -12,7 +12,7 @@ public class StorageTests
     Person testPerson = new(new FullName(FirstName: "PersonFirst", LastName: "PersonLast", MiddleName: "PersonMiddle"));
     Student testStudent = new(SID: 1, new FullName(FirstName: "StudentFirstName", LastName: "StudentLastName", MiddleName: "StudentMiddleName"));
     Employee testEmployee = new(EID: 1, new FullName(FirstName: "StudentFirstName", LastName: "StudentLastName", MiddleName: "StudentMiddleName"));
-    Book testBook = new(Title: "Test Book Tile", Author: new FullName("AuthorFirst", "AuthorLast", "AuthorMiddle"), 2000);
+    Book testBook = new(Title: "Test Book Tile", Author: new FullName("AuthorFirst", "AuthorLast", "AuthorMiddle"), YearPublished:2000);
 
     [TestInitialize]
     public void TestSetup()
