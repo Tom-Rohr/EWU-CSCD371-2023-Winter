@@ -10,5 +10,4 @@ public interface IEntity
     public bool Equals(Entity other);
 
     public int GetHashCode();
-
 }

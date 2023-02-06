@@ -1,5 +1,4 @@
-﻿
-namespace Logger
+﻿namespace Logger
 {
     public record class Student( int SID, FullName FName) : Person(FName)
     {

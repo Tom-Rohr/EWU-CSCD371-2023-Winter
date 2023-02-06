@@ -13,4 +13,9 @@ public record class Book(string Title, FullName Author, int YearPublished) : Ent
     }
 
     public override int GetHashCode() =>  HashCode.Combine(Title.GetHashCode(), Author.GetHashCode()) + YearPublished;
+
+    public override string ToString()
+    {
+        return String.Format("TITLE: {0}, AUTHOR: {1}, PUBLISHED: {2}", Name, Author, YearPublished);
+    }
 }
