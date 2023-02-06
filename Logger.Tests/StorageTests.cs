@@ -28,7 +28,7 @@ public class StorageTests
     }
 
     [TestMethod]
-    public void Storage_AddsAndRemoves_AllEntities()
+    public void Storage_AddsAndRemoves_AllRecordClasses()
     {
         testStorage.Add(testPerson);
         testStorage.Add(testStudent);
@@ -51,9 +51,13 @@ public class StorageTests
         Assert.IsFalse(testStorage.Contains(testBook));
     }
 
-    /*[TestMethod]
-    public void Storage_GetItemGuid()
+    [TestMethod]
+    public void Storage_GetItemWithGuid()
     {
+        Guid expectedGuid = testPerson.Id;
+        testStorage.Add(testPerson);
+        Person? newPerson = testStorage.Get(expectedGuid) as Person;
 
-    }*/
+        Assert.AreEqual(testPerson, newPerson);
+    }
 }
