@@ -15,5 +15,4 @@ public record class Person(FullName FName) : Entity
         return Name == other.Name;
     }
     public override int GetHashCode() => HashCode.Combine(Id.GetHashCode(), Name.GetHashCode());
-
 }
