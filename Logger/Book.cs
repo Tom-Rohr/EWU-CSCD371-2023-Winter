@@ -1,10 +1,10 @@
 ﻿namespace Logger;
 
-public record class Book(string Title, FullName Author, int YearPublished) : Entity
+public record class Book(string Title, FullName Author, int? YearPublished) : Entity
 {
     public override string Name { get; init; } = Title ?? throw new ArgumentNullException(nameof(Title));
     public FullName Author { get; init; } = Author?? throw new ArgumentNullException(nameof(Author));
-    public int YearPublished { get; init; } = YearPublished;
+    public int? YearPublished { get; init; } = YearPublished;
 
     public virtual bool Equals(Book? other)
     {
