@@ -5,9 +5,9 @@ namespace Logger.Tests;
 [TestClass]
 public class BookTests
 {
-    private string testTitle = "Of Mice and Men";
-    private FullName testAuthor = new(FirstName: "John", LastName: "Steinbeck", MiddleName: "Ernst");
-    private int testYearPublished = 1937;
+    private readonly string testTitle = "Of Mice and Men";
+    private readonly FullName testAuthor = new(FirstName: "John", LastName: "Steinbeck", MiddleName: "Ernst");
+    private readonly int testYearPublished = 1937;
 
     [TestMethod]
     public void Book_SetsProperties_Success()

@@ -7,7 +7,7 @@ public record class Person(FullName FName) : Entity
 
     public override string ToString()
     {
-        return String.Format(", Full Name: " + Name);
+        return string.Format(", Full Name: " + Name);
     }
     public virtual bool Equals(Person? other)
     {
