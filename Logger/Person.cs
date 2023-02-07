@@ -2,6 +2,7 @@
 {
     public record class Person(FullName FName) : Entity
     {
+        //Implemented Name implicitly to assig
         public override string Name { get; init; } = FName.ToString() ?? throw new ArgumentNullException(nameof(FName));
 
         public override string ToString()
