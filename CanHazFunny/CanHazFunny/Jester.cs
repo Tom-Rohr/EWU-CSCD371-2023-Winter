@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CanHazFunny;
 
 public class Jester
 {
-    public IJokeService JokeService
+    private IJokeService JokeService
     {
         get { return _JokeService!; }
         set { _JokeService = value; }
     }
     private IJokeService? _JokeService;
-    public IFunnyOut JokeWriter
+
+    private IFunnyOut JokeWriter
     {
         get { return _JokeWriter!; }
         set { _JokeWriter = value; }
@@ -25,12 +22,12 @@ public class Jester
     {
         if(jokeService is null)
         {
-            throw new ArgumentNullException("IJokeService passed to Jester contructor cannot be null.");
+            throw new ArgumentNullException(nameof(jokeService));
         }
         this.JokeService = jokeService;
         if(jokeWriter is null)
         {
-            throw new ArgumentNullException("IFunnyOut passed to Jester constructor cannot be null.");
+            throw new ArgumentNullException(nameof(jokeService));
         }
         this.JokeWriter = jokeWriter;
     }
