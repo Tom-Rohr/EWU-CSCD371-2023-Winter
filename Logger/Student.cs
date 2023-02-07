@@ -1,9 +1,8 @@
 ﻿namespace Logger;
 
-public record class Student( int? SID, FullName FName) : Person(FName)
+public record class Student( int SID, FullName FName) : Person(FName)
 {
-
-    public int? SID { get; init; } = SID;
+    public int SID { get; init; } = SID <= 0 ? throw new ArgumentException(nameof(SID)) : SID;
 
     public override string ToString()
     {
