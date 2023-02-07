@@ -6,25 +6,11 @@ namespace Logger.Tests;
 public class StorageTests
 {
     Storage testStorage = new();
-    Employee genericEmployee = new(42, new FullName(FirstName: "John", LastName: "Smith", MiddleName: "Middleton"));
 
     Person testPerson = new(new FullName(FirstName: "PersonFirst", LastName: "PersonLast", MiddleName: "PersonMiddle"));
     Student testStudent = new(SID: 1, new FullName(FirstName: "StudentFirstName", LastName: "StudentLastName", MiddleName: "StudentMiddleName"));
     Employee testEmployee = new(EID: 1, new FullName(FirstName: "StudentFirstName", LastName: "StudentLastName", MiddleName: "StudentMiddleName"));
     Book testBook = new(Title: "Test Book Tile", Author: new FullName("AuthorFirst", "AuthorLast", "AuthorMiddle"), YearPublished: 2000);
-
-    [TestInitialize]
-    public void TestSetup()
-    {
-        TestCleanup();
-        Storage testStorage = new();
-    }
-
-    [TestCleanup]
-    public void TestCleanup()
-    {
-        Storage testStorage = new();
-    }
 
     [TestMethod]
     public void Storage_AddsAndRemovesPerson_Success()
