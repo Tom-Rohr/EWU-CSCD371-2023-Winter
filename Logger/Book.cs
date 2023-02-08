@@ -6,7 +6,7 @@ public record class Book(string Title, FullName Author, int YearPublished) : Ent
     public override string Name { get; init; } = Title ?? throw new ArgumentNullException(nameof(Title));
 
     //Null check broke when changing FullName from record class to record struct
-    public FullName Author { get; init; } = Author /*?? throw new ArgumentNullException(nameof(Author))*/;
+    public FullName Author { get; init; } = Author;
     public int YearPublished { get; init; } = YearPublished <= 0 ? throw new ArgumentException(nameof(YearPublished)) : YearPublished;
 
     public virtual bool Equals(Book? other)

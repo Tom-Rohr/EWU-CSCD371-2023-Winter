@@ -52,13 +52,6 @@ public class BookTests
         Book testBook = new(null!, testAuthor, testYearPublished);
     }
     
-    //Broke when changing FullName to record struct
-    /*[TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void Book_NullAuthor_ThrowsException()
-    {
-        Book testBook = new(testTitle, null!, testYearPublished);
-    }*/
     [TestMethod]
     [ExpectedException(typeof(ArgumentException))]
     public void Book_InvalidYear_ThrowsException()
