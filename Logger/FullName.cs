@@ -1,19 +1,16 @@
 ﻿namespace Logger;
 
-//A.)Creating a 'record class' to define a custom value type as opposed to a 'record struct' because...
-/////1.) FullNameRecord logically represents up to three values.
+//A.)Creating a 'record struct' to define a custom value type as opposed to a 'record class' because...
+/////1.) FullNameRecord logically represents one value.
 /////2.) It will be immutable.
-/////3.) It is possible/likely a full name will be greater than 16-bytes of data.
-/////4.) It will be boxed frequently by the Storage class, so memory overhead will be less than using a value type.
-/////5.) Nothing should need to inherit from this record.
+/////3.) FullName is comprised of 3 strings, which are reference types. So, the length of strings will not matter since the references being stored will be less than 16 bytes.
 
-//B.)The Type is immutable because the property declarations are decorated with the 'init' modifier, meaning
-/////the positional parameters can only be set in the constructor or object initializers during initialization and cannot be changed after.
-public record struct FullName(string FirstName, string LastName, string? MiddleName = null)
+//B.)The Type is immutable because the struct is decorated with the access modifier 'readonly' so it cannot be changed after instantiation.
+public readonly record struct FullName(string FirstName, string LastName, string? MiddleName = null)
 {
-    public string FirstName { get; init; } = FirstName??throw new ArgumentNullException(nameof(FirstName));
-    public string LastName { get; init; } = LastName??throw new ArgumentNullException(nameof(LastName));
-    public string? MiddleName { get; init; } = MiddleName;
+    public string FirstName { get; } = FirstName??throw new ArgumentNullException(nameof(FirstName));
+    public string LastName { get; } = LastName??throw new ArgumentNullException(nameof(LastName));
+    public string? MiddleName { get; } = MiddleName;
 
     public override string ToString()
     {
