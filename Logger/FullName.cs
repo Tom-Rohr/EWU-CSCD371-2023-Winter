@@ -9,7 +9,7 @@
 
 //B.)The Type is immutable because the property declarations are decorated with the 'init' modifier, meaning
 /////the positional parameters can only be set in the constructor or object initializers during initialization and cannot be changed after.
-public record class FullName(string FirstName, string LastName, string? MiddleName = null)
+public record struct FullName(string FirstName, string LastName, string? MiddleName = null)
 {
     public string FirstName { get; init; } = FirstName??throw new ArgumentNullException(nameof(FirstName));
     public string LastName { get; init; } = LastName??throw new ArgumentNullException(nameof(LastName));

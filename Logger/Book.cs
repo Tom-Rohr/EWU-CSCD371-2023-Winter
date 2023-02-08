@@ -4,7 +4,9 @@ public record class Book(string Title, FullName Author, int YearPublished) : Ent
 {
     //Implemented implicitly because Name and Title are used interchangebly for books and should be accessible for their type.
     public override string Name { get; init; } = Title ?? throw new ArgumentNullException(nameof(Title));
-    public FullName Author { get; init; } = Author?? throw new ArgumentNullException(nameof(Author));
+
+    //Null check broke when changing FullName from record class to record struct
+    public FullName Author { get; init; } = Author /*?? throw new ArgumentNullException(nameof(Author))*/;
     public int YearPublished { get; init; } = YearPublished <= 0 ? throw new ArgumentException(nameof(YearPublished)) : YearPublished;
 
     public virtual bool Equals(Book? other)
