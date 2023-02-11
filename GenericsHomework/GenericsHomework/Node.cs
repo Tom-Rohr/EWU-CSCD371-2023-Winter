@@ -39,6 +39,6 @@ public class Node<TValue>
     */
     public override string? ToString()
     {
-        return Item.ToString();
+        return Item!.ToString(); //Better way to handle than using '!'?
     }
 }
