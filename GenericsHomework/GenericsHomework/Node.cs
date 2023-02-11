@@ -4,13 +4,14 @@ public class Node<TValue>
 {
     public TValue Item { get; set; }
     public Node<TValue> Next { get; private set; }
-    public TValue? Prev { get; set; }
+    public TValue Prev { get; set; }
     internal bool IsFirstItem { get; set; } = true;
 
     public Node(TValue item)
     {
         Item = item;
         Next = this; //Initially points to itself, cannot be null per instructions
+        Prev = Item; //Initially points to its own item.
     }
 
     public Node<TValue> Append(TValue newItem) //TO DO always have newly created node point to first item that was added
