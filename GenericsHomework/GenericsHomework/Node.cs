@@ -13,7 +13,7 @@ public class Node<TValue>
         Next = this; //Initially points to itself, cannot be null per instructions
     }
 
-    public Node<TValue> Append(TValue newItem)
+    public Node<TValue> Append(TValue newItem) //TO DO always have newly created node point to first item that was added
     {
         Node<TValue> newNode = new(newItem); //Make new node
         newNode.IsFirstItem = false;         //Indicate this is not the tail
