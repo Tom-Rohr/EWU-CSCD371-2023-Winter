@@ -1,7 +1,7 @@
 namespace GenericsHomework.Test;
 
 [TestClass]
-public class UnitTest1
+public class NodeTests
 {
     [TestMethod]
     public void Node_ToString_works()
