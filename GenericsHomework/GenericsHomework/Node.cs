@@ -15,7 +15,8 @@ public class Node<TItem>
 
     public Node<TItem> Append(TItem newItem) //TO DO always have newly created node point to first item that was added
     {
-        Node<TItem> newNode = new(newItem); //Make new node      //Indicate this is not the tail
+        Node<TItem> newNode = new(newItem);  //Make new node
+        newNode.Next = Next;                
         newNode.Prev = Item;                 //Will point to previous item (this.Item)
         Next = newNode;                      //Set current node's next to the new node
         return newNode;                      //Return the new Node, which is now the head of the list
