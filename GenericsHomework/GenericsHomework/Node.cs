@@ -37,7 +37,7 @@ public class Node<TItem>
         return Item!.ToString(); //Better way to handle than using '!'?
     }
 
-    public bool Exists(TValue item)
+    public bool Exists(TItem item)
     {
         return false;
     }
