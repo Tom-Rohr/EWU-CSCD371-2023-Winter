@@ -23,8 +23,6 @@ public class Node<TItem>
             Current = this;
             Head!.Next = Current;
         }
-        //Item = item ?? throw new ArgumentNullException(nameof(item));
-        //Next = this ?? throw new ArgumentNullException(nameof(item));//Initially points to itself, cannot be null per instructions
     }
 
     public void Append()
