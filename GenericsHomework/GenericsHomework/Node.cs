@@ -4,6 +4,7 @@ public class Node<TValue>
 {
     public TValue? Value { get; set; } //does 'no validation necessary' mean null is fine? Erasing the ? from here and constructor causes no errors.
     public Node<TValue> Next { get; private set; } //is this sufficiently non-nullable because no code paths can make it null?
+
     public Node(TValue? value)
     {
         Value = value;
@@ -27,7 +28,9 @@ public class Node<TValue>
     {
         Node<TValue> temp = this;
         bool exists = false;
-        while (temp.Next != this && !exists) //unsure if != operator is correct here
+        //Because this loop condition only executes if temp.Next is not the starting node,
+        //it will not check the node that points to 'this'. The current unit test fails.
+        while (temp.Next != this && exists is false) //unsure if != operator is correct here
         {
             if (temp.Value!.Equals(value)) //unsure if this is the right Equals to call
             {
