@@ -27,18 +27,19 @@ public class Node<TValue>
     public bool Exists(TValue value)
     {
         Node<TValue> temp = this;
-        bool exists = false;
-        //Because this loop condition only executes if temp.Next is not the starting node,
-        //it will not check the node that points to 'this'. The current unit test fails.
-        while (temp.Next != this && exists is false) //unsure if != operator is correct here
+
+        if (temp.Value!.Equals(value)) return true;
+        temp = Next;
+
+        while (temp != this) //unsure if != operator is correct here
         {
             if (temp.Value!.Equals(value)) //unsure if this is the right Equals to call
             {
-                exists = true;
+                return true;
             }
             temp = temp.Next;
         }
-        return exists;
+        return false;
     }
 
     public override string? ToString()

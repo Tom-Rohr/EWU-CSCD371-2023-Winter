@@ -31,7 +31,7 @@ public class NodeTests
     }
 
     [TestMethod]
-    public void Node_IdentifiesEntries_True()
+    public void Exists_IsInList_ReturnsTrue()
     {
         Node<string> list = new("First node");
         list.Append("Second node");
@@ -39,6 +39,17 @@ public class NodeTests
         list.Append("Fourth node");
 
         Assert.IsTrue(list.Exists("Second node"));
+    }
+
+    [TestMethod]
+    public void Exists_NotInList_ReturnsFalse()
+    {
+        Node<int> list = new(1);
+        list.Append(2);
+        list.Append(3);
+        list.Append(4);
+
+        Assert.IsFalse(list.Exists(5));
     }
 
     [TestMethod]
