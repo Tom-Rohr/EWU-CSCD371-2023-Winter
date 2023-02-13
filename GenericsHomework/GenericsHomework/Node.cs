@@ -41,7 +41,7 @@ public class Node<T>
 
     public override string? ToString()
     {
-        return (Value is null) ? "null" : Value!.ToString(); //is use of ! and ? ok here?
+        return (Value is null) ? "null" : Value!.ToString();
     }
 
     public void Clear()
