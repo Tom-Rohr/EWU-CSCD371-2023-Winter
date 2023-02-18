@@ -4,8 +4,8 @@ public class Program
 {
     public Action<string>? WriteLine
     {
-        //get; set;
-        
+        get; set;
+        /*
         get
         {
             return WriteLine;
@@ -14,12 +14,13 @@ public class Program
         {
             Console.WriteLine();
         }
-        
+        */
     }
 
     public Func<string>? ReadLine 
     {
-        //get; set;
+        get; set;
+        /*
         get
         {
             return ReadLine;
@@ -28,7 +29,7 @@ public class Program
         {
             Console.ReadLine();
         }
-        
+        */
     }
 
     /*
@@ -39,7 +40,7 @@ public class Program
     }
     */
 
-    public Program() { }
+    public Program() { } 
 
     public static void Main(string[] args)
     {
