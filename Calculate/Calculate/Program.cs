@@ -2,9 +2,11 @@
 
 public class Program
 {
-    public Action<string>? WriteLine { get; init; }
-    public Action<string>? ReadLine { get; init; }
+    public Func<string, string>? WriteLine { get; init; }
+    public Func<string, string>? ReadLine { get; init; }
 
+
+    public Program() { }
     public static void Main(string[] args)
     {
 

@@ -8,13 +8,19 @@ namespace CalculateTests
         [TestMethod]
         public void Program_SetsAndInvokesProperties_Success()
         {
-            void testActionWriteLine(string testLine) { }
-            void testActionReadLine(string testLine) { }
+            string testWriteLine = "WriteLine test string.";
+            string testReadLine = "ReadLine string to be read";
+
+            string testActionWriteLine(string testLineOut) { return testLineOut; }
+            string testActionReadLine(string testLineIn) { return testLineIn; }
 
             Program program = new() { WriteLine = testActionWriteLine, ReadLine = testActionReadLine };
 
-            Assert.IsNotNull(program.WriteLine);
-            Assert.IsNotNull(program.ReadLine);
+            string writeLineOutput = program.WriteLine(testWriteLine);
+            string testStoreReadLine = program.ReadLine(testReadLine);
+
+            Assert.AreEqual<string>("WriteLine test string.", writeLineOutput);
+            Assert.AreEqual<string>("ReadLine string to be read", testStoreReadLine);
 
         }
     }
