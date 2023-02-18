@@ -2,8 +2,10 @@
 
 public class Program
 {
-    public Func<string, string>? WriteLine
+    public Action<string>? WriteLine
     {
+        //get; set;
+        
         get
         {
             return WriteLine;
@@ -11,11 +13,13 @@ public class Program
         init
         {
             Console.WriteLine();
-        } 
+        }
+        
     }
 
-    public Func<string, string>? ReadLine 
+    public Func<string>? ReadLine 
     {
+        //get; set;
         get
         {
             return ReadLine;
@@ -24,15 +28,19 @@ public class Program
         {
             Console.ReadLine();
         }
+        
     }
 
-    public Program(Func<string, string>? writeLine, Func<string, string>? readLine)
+    /*
+    public Program(Action<string>? writeLine, Func<string>? readLine)
     {
         WriteLine = writeLine;
         ReadLine = readLine;
     }
+    */
 
     public Program() { }
+
     public static void Main(string[] args)
     {
 
