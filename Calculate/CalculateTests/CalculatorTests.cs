@@ -6,18 +6,23 @@ namespace CalculateTests;
 
 public class CalculatorTests
 {
+    Program prog = new();
+    Calculator calc = new();
+    double result = default;
+    StringWriter stringWriter = new StringWriter();
+
+    [TestInitialize]
+    public void TestInit()
+    {
+        Console.SetOut(stringWriter);
+    }
+
     [TestMethod]
 
     public void Calculator_Addition_Correct()
     {
-        Program prog = new();
-        Calculator calc = new();
-
-        double result = default;
         var stringReader = new StringReader("40 + 2");
-        var stringWriter = new StringWriter();
         Console.SetIn(stringReader);
-        Console.SetOut(stringWriter);
 
         calc.TryCalculate(prog.ReadLine()!, out result);
         prog.WriteLine(result.ToString());
@@ -30,14 +35,8 @@ public class CalculatorTests
 
     public void Calculator_Subtraction_Correct()
     {
-        Program prog = new();
-        Calculator calc = new();
-
-        double result = default;
         var stringReader = new StringReader("123 - 124");
-        var stringWriter = new StringWriter();
         Console.SetIn(stringReader);
-        Console.SetOut(stringWriter);
 
         calc.TryCalculate(prog.ReadLine()!, out result);
         prog.WriteLine(result.ToString());
@@ -49,14 +48,8 @@ public class CalculatorTests
     [TestMethod]
     public void Calculator_Multiplication_Correct()
     {
-        Program prog = new();
-        Calculator calc = new();
-
-        double result = default;
         var stringReader = new StringReader("12 * 12");
-        var stringWriter = new StringWriter();
         Console.SetIn(stringReader);
-        Console.SetOut(stringWriter);
 
         calc.TryCalculate(prog.ReadLine()!, out result);
         prog.WriteLine(result.ToString());
@@ -68,14 +61,8 @@ public class CalculatorTests
     [TestMethod]
     public void Calculator_Division_Correct()
     {
-        Program prog = new();
-        Calculator calc = new();
-
-        double result = default;
         var stringReader = new StringReader("25 / 100");
-        var stringWriter = new StringWriter();
         Console.SetIn(stringReader);
-        Console.SetOut(stringWriter);
 
         calc.TryCalculate(prog.ReadLine()!, out result);
         prog.WriteLine(result.ToString());
