@@ -18,6 +18,7 @@ public class Calculator
                 Func<int, int, double> mathOperation = MathematicalOperations[opChar];
                 result = mathOperation(x, y);
             }
+            //else { throw new ArgumentException(nameof(TryCalculate)); }
         }
         return validCalculationString;
     }
