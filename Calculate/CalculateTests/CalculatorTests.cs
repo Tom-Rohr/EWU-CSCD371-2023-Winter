@@ -70,4 +70,22 @@ public class CalculatorTests
         Assert.AreEqual<double>(.25, result);
         Assert.AreEqual<string>("0.25", stringWriter.ToString().Trim());
     }
+
+    [TestMethod]
+    public void Calculator_TryCalc_CorrectFormat_ReturnsTrue()
+    {
+        var stringReader = new StringReader("25 / 100");
+        Console.SetIn(stringReader);
+
+        Assert.IsTrue(calc.TryCalculate(prog.ReadLine()!, out result));
+    }
+
+    [TestMethod]
+    public void Calculator_TryCalc_BadFormat_ReturnsFalse()
+    {
+        var stringReader = new StringReader("25/100");
+        Console.SetIn(stringReader);
+
+        Assert.IsFalse(calc.TryCalculate(prog.ReadLine()!, out result));
+    }
 }
