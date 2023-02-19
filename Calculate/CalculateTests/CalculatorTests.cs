@@ -6,10 +6,10 @@ namespace CalculateTests;
 
 public class CalculatorTests
 {
-    Program prog = new();
-    Calculator calc = new();
+    readonly Program prog = new();
+    readonly Calculator calc = new();
     double result = default;
-    StringWriter stringWriter = new StringWriter();
+    readonly StringWriter stringWriter = new();
 
     [TestInitialize]
     public void TestInit()
@@ -18,7 +18,6 @@ public class CalculatorTests
     }
 
     [TestMethod]
-
     public void Calculator_Addition_Correct()
     {
         var stringReader = new StringReader("40 + 2");
@@ -32,7 +31,6 @@ public class CalculatorTests
     }
 
     [TestMethod]
-
     public void Calculator_Subtraction_Correct()
     {
         var stringReader = new StringReader("123 - 124");

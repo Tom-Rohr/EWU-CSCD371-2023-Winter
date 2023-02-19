@@ -6,7 +6,7 @@ namespace CalculateTests;
 public class ProgramTests
 {
     [TestMethod]
-    public void Program_SetsAndInvokesDelegateProperties_Success()
+    public void Program_SetAndInvokeDelegateProperties_Success()
     {
         string testWriteLine = "WriteLine test string.";
         string testReadLine = "ReadLine string to be read";

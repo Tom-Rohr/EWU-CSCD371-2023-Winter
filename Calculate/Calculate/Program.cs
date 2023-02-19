@@ -1,12 +1,8 @@
-﻿namespace Calculate;
+﻿using ConsoleUtilities;
+namespace Calculate;
 
-public class Program
+public class Program : ProgramBase
 {
-    public Action<string> WriteLine { get; init; } = Console.WriteLine;
-    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
-
-    public Program() { }
-
     public static void Main()
     {
         Program prog = new();
