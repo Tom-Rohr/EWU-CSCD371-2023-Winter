@@ -2,48 +2,28 @@
 
 public class Program
 {
-    public Action<string>? WriteLine
+    public Action<string> WriteLine { get; init; } = Console.WriteLine;
+    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
+
+    public Program() { }
+
+    public static void Main()
     {
-        get; set;
-        /*
-        get
+        Program prog = new();
+        Calculator calc = new();
+        do
         {
-            return WriteLine;
+            prog.WriteLine("Enter a simple two-integer-operand calculation using +, -, *, or / as the operator.");
+            if (calc.TryCalculate(prog.ReadLine()!, out double result))
+            {
+                prog.WriteLine("The result is " + result);
+            }
+            else
+            {
+                prog.WriteLine("Invalid operation format.");
+            }
+            prog.WriteLine("Continue? Enter the 'Y' key to run again, enter anything else to quit.");
         }
-        init
-        {
-            Console.WriteLine();
-        }
-        */
-    }
-
-    public Func<string>? ReadLine 
-    {
-        get; set;
-        /*
-        get
-        {
-            return ReadLine;
-        }
-        init
-        {
-            Console.ReadLine();
-        }
-        */
-    }
-
-    /*
-    public Program(Action<string>? writeLine, Func<string>? readLine)
-    {
-        WriteLine = writeLine;
-        ReadLine = readLine;
-    }
-    */
-
-    public Program() { } 
-
-    public static void Main(string[] args)
-    {
-
+        while (prog.ReadLine() == "Y");
     }
 }
