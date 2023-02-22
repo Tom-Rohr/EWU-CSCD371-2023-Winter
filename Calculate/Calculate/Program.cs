@@ -3,10 +3,11 @@ namespace Calculate;
 
 public class Program : ProgramBase
 {
+    private static Calculator calc = new();
     public static void Main()
     {
         Program prog = new();
-        Calculator calc = new();
+
         do
         {
             prog.WriteLine("Enter a simple two-integer-operand calculation using +, -, *, or / as the operator.");
