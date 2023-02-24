@@ -7,20 +7,26 @@ namespace Assignment
 {
     public class SampleData : ISampleData
     {
+
         // 1.
         public IEnumerable<string> CsvRows 
-            => File.ReadAllLines("People.csv").Skip(1).ToList();
+            => File.ReadAllLines("People.csv").Skip(1);
 
         // 2.
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
-            => throw new NotImplementedException();
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+        {
+            List<string> uniqueSortedStates = new();
+               
+            return uniqueSortedStates;
+        }
+      
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
             => throw new NotImplementedException();
 
         // 4.
-        public IEnumerable<IPerson> People 
+        public IEnumerable<IPerson> People
             => throw new NotImplementedException();
 
         // 5.
