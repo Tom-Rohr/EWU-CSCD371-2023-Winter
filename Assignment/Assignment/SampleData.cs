@@ -8,7 +8,8 @@ namespace Assignment
     public class SampleData : ISampleData
     {
         // 1.
-        public IEnumerable<string> CsvRows => File.ReadAllLines("People.csv").Skip(1).ToList();
+        public IEnumerable<string> CsvRows 
+            => File.ReadAllLines("People.csv").Skip(1).ToList();
 
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
@@ -19,7 +20,8 @@ namespace Assignment
             => throw new NotImplementedException();
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
+        public IEnumerable<IPerson> People 
+            => throw new NotImplementedException();
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(

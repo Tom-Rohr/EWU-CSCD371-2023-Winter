@@ -16,9 +16,7 @@ public class SampleDataTests
     {
         SampleData data = new();
         IEnumerable<string> items = data.CsvRows;
-        foreach (var item in items)
-        {
-            Console.WriteLine(item);
-        }
+
+        Assert.AreEqual<int>(50, items.Count());
     }
 }
