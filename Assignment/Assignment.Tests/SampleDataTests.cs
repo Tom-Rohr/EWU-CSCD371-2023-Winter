@@ -69,6 +69,30 @@ public class SampleDataTests
         Assert.IsTrue(sameElements);
     }
 
+    [TestMethod]
+    public void People_PopulatesWithPeopleObjects_Success()
+    {
+        List<IPerson> people = data.People.ToList(); 
+        List<string> csvRows = data.CsvRows.ToList();
+        bool sameData = true;
+        int count = 0;
+
+        foreach(IPerson person in people)
+        {
+            string[] personData = csvRows[count].Split(",");
+            Address testAddress = new(personData[4].Trim(), personData[5].Trim(), personData[6].Trim(), personData[7].Trim());
+            if
+            (
+                person.FirstName != personData[1].Trim() ||
+                person.LastName != personData[2].Trim() ||
+                person.EmailAddress != personData[3].Trim() ||
+                person.Address.ToString() != testAddress.ToString()
+            ) { sameData = false; }
+            count++;
+        }
+        Assert.IsTrue(sameData);
+    }
+
     List<Address> spokaneAddresses = new List<Address> //Where to leverage this for #2 on assignment?
     {
         new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park

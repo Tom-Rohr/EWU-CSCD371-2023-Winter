@@ -9,7 +9,7 @@ namespace Assignment
     {
 
         // 1.
-        public IEnumerable<string> CsvRows 
+        public IEnumerable<string> CsvRows
             => File.ReadAllLines("People.csv").Skip(1);
 
         // 2.
@@ -17,7 +17,7 @@ namespace Assignment
         {
             List<string> uniqueSortedStates = new();
 
-            foreach (string row  in CsvRows)
+            foreach (string row in CsvRows)
             {
                 string[] splitRow = row.Split(',');
                 if (!uniqueSortedStates.Contains(splitRow[6])) uniqueSortedStates.Add(splitRow[6]);
@@ -28,7 +28,7 @@ namespace Assignment
 
 
         // 3.
-        public string GetAggregateSortedListOfStatesUsingCsvRows() 
+        public string GetAggregateSortedListOfStatesUsingCsvRows()
         {
             string[] uniqueSortedStates = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
             string uniqueStatesSorted = string.Join(",", uniqueSortedStates);
@@ -37,7 +37,8 @@ namespace Assignment
 
         // 4.
         public IEnumerable<IPerson> People
-            => throw new NotImplementedException();
+            => CsvRows.Select(row => Person.ParseRow(row));
+
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
