@@ -10,8 +10,8 @@ namespace Assignment.Tests;
 [TestClass]
 public class PersonTests
 {
-    static string testCsvRow = "1337, Tom, Rohr, trohr@ewu.edu, 4127 S. Sullivan Rd, Veradale, WA, 99037";
-    Person testPerson = Person.ParseRow(testCsvRow);
+    static readonly string testCsvRow = "1337, Tom, Rohr, trohr@ewu.edu, 4127 S. Sullivan Rd, Veradale, WA, 99037";
+    readonly Person testPerson = Person.ParseRow(testCsvRow);
 
     [TestMethod]
     public void Person_ParseAndSetProperties_Success()

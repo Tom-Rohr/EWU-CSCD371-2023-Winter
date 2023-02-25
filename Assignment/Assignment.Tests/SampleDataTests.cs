@@ -8,7 +8,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class SampleDataTests
 {
-    SampleData data = new();
+    readonly SampleData data = new();
 
     [TestMethod]
     public void SampleData_FillsListFromCSVRows_Success()
@@ -93,7 +93,7 @@ public class SampleDataTests
         Assert.IsTrue(sameData);
     }
 
-    List<Address> spokaneAddresses = new List<Address> //Where to leverage this for #2 on assignment?
+    readonly List<Address> spokaneAddresses = new()
     {
         new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
         new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
