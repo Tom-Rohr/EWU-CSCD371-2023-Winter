@@ -52,6 +52,23 @@ public class SampleDataTests
         Assert.AreEqual<int>(1, uniqueStates.Count);
     }
 
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsListAsSingleString()
+    {
+        string uniqueStatesSorted = data.GetAggregateSortedListOfStatesUsingCsvRows();
+        string[] testArray = uniqueStatesSorted.Split(',');
+        int count = 0;
+        bool sameElements = true;
+        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+
+        foreach(string state in uniqueStates)
+        {
+            if (testArray[count] != state) sameElements = false;
+            count++;
+        }
+        Assert.IsTrue(sameElements);
+    }
+
     List<Address> spokaneAddresses = new List<Address> //Where to leverage this for #2 on assignment?
     {
         new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park

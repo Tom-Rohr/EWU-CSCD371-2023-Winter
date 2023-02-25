@@ -25,11 +25,15 @@ namespace Assignment
             uniqueSortedStates.Sort();
             return uniqueSortedStates;
         }
-      
+
 
         // 3.
-        public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        public string GetAggregateSortedListOfStatesUsingCsvRows() 
+        {
+            string[] uniqueSortedStates = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
+            string uniqueStatesSorted = string.Join(",", uniqueSortedStates);
+            return uniqueStatesSorted;
+        }
 
         // 4.
         public IEnumerable<IPerson> People
