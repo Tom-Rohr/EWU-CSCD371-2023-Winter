@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using Assignment;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment.Tests;
 
@@ -65,6 +62,5 @@ public class SampleDataTests
         new Address("916 W 2nd Ave", "Spokane", "WA", "99201"),       //Wild Sage Bistro
         new Address("501 W Park Pl", "Spokane", "WA", "99205"),       //Corbin Park
         new Address("1810 N Greene St", "Spokane", "WA", "99217")     //Spokane Community College
-
     };
 }
