@@ -16,7 +16,13 @@ namespace Assignment
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
             List<string> uniqueSortedStates = new();
-               
+
+            foreach (string row  in CsvRows)
+            {
+                string[] splitRow = row.Split(',');
+                if (!uniqueSortedStates.Contains(splitRow[6])) uniqueSortedStates.Add(splitRow[6]);
+            }
+            uniqueSortedStates.Sort();
             return uniqueSortedStates;
         }
       
