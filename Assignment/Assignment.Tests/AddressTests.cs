@@ -10,7 +10,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class AddressTests
 {
-    Address testAddress = new("4127 S. Sullivan Rd", "Veradale", "WA", "99037");
+    readonly Address testAddress = new("4127 S. Sullivan Rd", "Veradale", "WA", "99037");
 
     [TestMethod]
     public void Address_SetsProperties_Success()
