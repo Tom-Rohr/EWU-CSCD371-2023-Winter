@@ -28,12 +28,34 @@ public class SampleDataTests
 
         Assert.IsTrue(uniqueStates.Distinct().Count() == uniqueStates.Count());
     }
+
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted()
     {
+        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        bool nextElementAscendsPrevious = true;
 
+            for(int i=0; i<uniqueStates.Count-1; i++)
+            {
+                if (StringComparer.Ordinal.Compare(uniqueStates[i], uniqueStates[i + 1]) > 0)
+                    nextElementAscendsPrevious = false;
+            }
+
+        Assert.IsTrue(nextElementAscendsPrevious);
     }
-    List<Address> spokaneAddresses = new List<Address>
+
+    [TestMethod]
+    public void SpokaneAddresses_YieldOneDistinctState_True()
+    {
+        List<string> uniqueStates = new();
+        foreach (Address address in spokaneAddresses) 
+        {
+            if (!uniqueStates.Contains(address.State)) uniqueStates.Add(address.State);
+        }
+        Assert.AreEqual<int>(1, uniqueStates.Count);
+    }
+
+    List<Address> spokaneAddresses = new List<Address> //Where to leverage this for #2 on assignment?
     {
         new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
         new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
