@@ -13,30 +13,39 @@ public class SampleDataTests
     [TestMethod]
     public void SampleData_FillsListFromCSVRows_Success()
     {
+        //Act
         IEnumerable<string> items = data.CsvRows;
 
+        //Assert
         Assert.AreEqual<int>(50, items.Count());
     }
+
 
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_FillsUniqueStates()
     {
+        //Act
         IEnumerable<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows();
 
+        //Assert
         Assert.IsTrue(uniqueStates.Distinct().Count() == uniqueStates.Count());
     }
 
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted()
     {
-        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        //Arrange
         bool nextElementAscendsPrevious = true;
 
-            for(int i=0; i<uniqueStates.Count-1; i++)
-            {
-                if (StringComparer.Ordinal.Compare(uniqueStates[i], uniqueStates[i + 1]) > 0)
-                    nextElementAscendsPrevious = false;
-            }
+        //Act
+        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+
+        //Assert
+        for (int i = 0; i < uniqueStates.Count - 1; i++)
+        {
+            if (StringComparer.Ordinal.Compare(uniqueStates[i], uniqueStates[i + 1]) > 0)
+                nextElementAscendsPrevious = false;
+        }
 
         Assert.IsTrue(nextElementAscendsPrevious);
     }
@@ -44,24 +53,33 @@ public class SampleDataTests
     [TestMethod]
     public void SpokaneAddresses_YieldOneDistinctState_True()
     {
+        //Arrange
         List<string> uniqueStates = new();
-        foreach (Address address in spokaneAddresses) 
+        
+        //Act
+        foreach (Address address in spokaneAddresses)
         {
             if (!uniqueStates.Contains(address.State)) uniqueStates.Add(address.State);
         }
+
+        //Assert
         Assert.AreEqual<int>(1, uniqueStates.Count);
     }
 
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsListAsSingleString()
     {
-        string uniqueStatesSorted = data.GetAggregateSortedListOfStatesUsingCsvRows();
-        string[] testArray = uniqueStatesSorted.Split(',');
+        //Arrange
         int count = 0;
         bool sameElements = true;
         List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
-        foreach(string state in uniqueStates)
+        //Act
+        string uniqueStatesSorted = data.GetAggregateSortedListOfStatesUsingCsvRows();
+
+        //Assert
+        string[] testArray = uniqueStatesSorted.Split(',');
+        foreach (string state in uniqueStates)
         {
             if (testArray[count] != state) sameElements = false;
             count++;
@@ -70,27 +88,96 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void People_PopulatesWithPeopleObjects_Success()
+    public void ParsePersonFromRow_GivenValidString_CreatesPerson()
     {
-        List<IPerson> people = data.People.ToList(); 
-        List<string> csvRows = data.CsvRows.ToList();
-        bool sameData = true;
-        int count = 0;
+        // Arrange
+        string testCsvRow = "1337, Tom, Rohr, trohr@ewu.edu, 4127 S. Sullivan Rd, Veradale, WA, 99037";
 
-        foreach(IPerson person in people)
+        // Act
+        Person testPerson = SampleData.ParsePersonFromRow(testCsvRow);
+
+        // Assert
+        Assert.AreEqual<string>("Tom", testPerson.FirstName);
+        Assert.AreEqual<string>("Rohr", testPerson.LastName);
+        Assert.AreEqual<string>("trohr@ewu.edu", testPerson.EmailAddress);
+        Assert.AreEqual<string>("4127 S. Sullivan Rd, Veradale WA, 99037", testPerson.Address.ToString()!);
+    }
+
+    [TestMethod]
+    public void People_PopulatesWithOrderedPeopleObjects_Success()
+    {
+        // Arrange
+        List<IPerson> people = new();
+        List<string> csvRows = data.CsvRows.ToList();
+        foreach (string line in csvRows)
         {
-            string[] personData = csvRows[count].Split(",");
-            Address testAddress = new(personData[4].Trim(), personData[5].Trim(), personData[6].Trim(), personData[7].Trim());
-            if
-            (
-                person.FirstName != personData[1].Trim() ||
-                person.LastName != personData[2].Trim() ||
-                person.EmailAddress != personData[3].Trim() ||
-                person.Address.ToString() != testAddress.ToString()
-            ) { sameData = false; }
+            people.Add(SampleData.ParsePersonFromRow(line));
+        }
+        people = people.OrderBy(x => x.Address.ToString())
+            .ThenBy(x => x.Address.State)
+            .ThenBy(x => x.Address.City)
+            .ThenBy(x => x.Address.Zip).ToList();
+
+        // Act
+        List<IPerson> peopleProperty = data.People.ToList();
+
+        // Assert
+        int count = 0;
+        foreach (IPerson item in people)
+        {
+            Assert.AreEqual<string>(item.FirstName, peopleProperty[count].FirstName);
+            Assert.AreEqual<string>(item.LastName, peopleProperty[count].LastName);
+            Assert.AreEqual<string>(item.Address.ToString()!, peopleProperty[count].Address.ToString()!);
+            Assert.AreEqual<string>(item.EmailAddress, peopleProperty[count].EmailAddress);
+            Console.WriteLine(string.Format("{0, 15} {1, 15} {2, 50} {3, 30}",
+                peopleProperty[count].FirstName,
+                peopleProperty[count].LastName,
+                peopleProperty[count].Address.ToString(),
+                peopleProperty[count].EmailAddress));
             count++;
         }
-        Assert.IsTrue(sameData);
+        Assert.AreEqual<int>(csvRows.Count, count);
+    }
+
+    [DataTestMethod]
+    [DataRow("smahonyg@stanford.edu", "Sancho", "Mahony")]
+    [DataRow("mthurnhamr@live.com", "Mayor", "Thurnham")]
+    [DataRow("wmesnard10@amazonaws.com", "Westley", "Mesnard")]
+    [DataRow("jmullany16@eepurl.com", "Joellen", "Mullany")]
+    [DataRow("cstennine2@wired.com", "Chadd", "Stennine")]
+    public void FilterByEmailAddress_GivenFilter_ReturnsTuple(string testEmail, string testFirst, string testLast)
+    {
+        // Arrange
+        bool EmailPredicate(string email) => email.Equals(testEmail);
+
+        // Act
+        List<(string, string)> matches = data.FilterByEmailAddress(EmailPredicate).ToList();
+
+        // Assert
+        foreach ((string, string) item in matches)
+        {
+            Console.WriteLine($"{testEmail} => {item}");
+            Assert.AreEqual<(string, string)>((testFirst, testLast), item);
+        }
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_GivenPeople_ReturnsAggregateStringOfUniqueStates()
+    {
+        // Arrange
+        List<string> states = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+
+        // Act
+        string aggregate = data.GetAggregateListOfStatesGivenPeopleCollection(data.People);
+        List<string> stateTokens = aggregate.Split(",").ToList();
+        stateTokens.Sort();
+
+        // Assert
+        foreach (string stateToken in stateTokens)
+        {
+            Console.WriteLine(stateToken);
+            Assert.IsTrue(states.Contains(stateToken));
+        }
     }
 
     readonly List<Address> spokaneAddresses = new()

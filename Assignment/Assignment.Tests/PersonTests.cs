@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assignment.Tests;
 
@@ -11,7 +6,7 @@ namespace Assignment.Tests;
 public class PersonTests
 {
     static readonly string testCsvRow = "1337, Tom, Rohr, trohr@ewu.edu, 4127 S. Sullivan Rd, Veradale, WA, 99037";
-    readonly Person testPerson = Person.ParseRow(testCsvRow);
+    readonly Person testPerson = SampleData.ParsePersonFromRow(testCsvRow);
 
     [TestMethod]
     public void Person_ParseAndSetProperties_Success()
@@ -23,5 +18,4 @@ public class PersonTests
 
 
     }
-
 }
