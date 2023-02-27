@@ -20,8 +20,8 @@ public class NodeTests
     [TestMethod]
     public void Node_ToStringOverride_HandlesNull()
     {
-        Node<string> node = new(null);
-        Assert.AreEqual<string>("null", node.ToString()!);
+        Node<string> node = new(null!);
+        Assert.IsTrue(node.ToString() == null);
     }
 
     [TestMethod]

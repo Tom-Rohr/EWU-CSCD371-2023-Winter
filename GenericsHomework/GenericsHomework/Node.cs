@@ -2,10 +2,10 @@
 
 public class Node<T>
 {
-    public T? Value { get; set; } //does 'no validation necessary' mean null is fine? Erasing the ? from here and constructor causes no errors.
+    public T Value { get; set; } //does 'no validation necessary' mean null is fine? Erasing the ? from here and constructor causes no errors.
     public Node<T> Next { get; private set; } //is this sufficiently non-nullable because no code paths can make it null?
 
-    public Node(T? value)
+    public Node(T value)
     {
         Value = value;
         Next = this;
@@ -41,7 +41,7 @@ public class Node<T>
 
     public override string? ToString()
     {
-        return (Value is null) ? "null" : Value!.ToString();
+        return Value?.ToString();
     }
 
     public void Clear()
