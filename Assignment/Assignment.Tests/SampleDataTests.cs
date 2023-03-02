@@ -51,7 +51,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void SpokaneAddresses_YieldOneDistinctState_True()
+    public void HardCodedAddresses_YieldOneDistinctState_True()
     {
         //Arrange
         List<string> uniqueStates = new();
@@ -63,7 +63,7 @@ public class SampleDataTests
         }
 
         //Assert
-        Assert.AreEqual<int>(1, uniqueStates.Count);
+        Assert.AreEqual<int>(7, uniqueStates.Count);
     }
 
     [TestMethod]
@@ -184,11 +184,11 @@ public class SampleDataTests
     {
         new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
         new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
-        new Address("1702 S Grand Blvd", "Spokane", "WA", "99203"),   //Manito Park
-        new Address("101 W 8th Ave", "Spokane", "WA", "99204"),       //Sacred Heart Hospital
-        new Address("601 E Riverside Ave", "Spokane", "WA", "99202"), //Catalyst Building
-        new Address("916 W 2nd Ave", "Spokane", "WA", "99201"),       //Wild Sage Bistro
-        new Address("501 W Park Pl", "Spokane", "WA", "99205"),       //Corbin Park
-        new Address("1810 N Greene St", "Spokane", "WA", "99217")     //Spokane Community College
+        new Address("1702 S Grand Blvd", "Spokane", "ID", "99203"),   //Manito Park
+        new Address("101 W 8th Ave", "Spokane", "AK", "99204"),       //Sacred Heart Hospital
+        new Address("601 E Riverside Ave", "Spokane", "AZ", "99202"), //Catalyst Building
+        new Address("916 W 2nd Ave", "Spokane", "NY", "99201"),       //Wild Sage Bistro
+        new Address("501 W Park Pl", "Spokane", "IL", "99205"),       //Corbin Park
+        new Address("1810 N Greene St", "Spokane", "ND", "99217")     //Spokane Community College
     };
 }
