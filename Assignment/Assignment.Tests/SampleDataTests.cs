@@ -41,6 +41,7 @@ public class SampleDataTests
         List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
         //Assert
+        //Implement Zip
         for (int i = 0; i < uniqueStates.Count - 1; i++)
         {
             if (StringComparer.Ordinal.Compare(uniqueStates[i], uniqueStates[i + 1]) > 0)
