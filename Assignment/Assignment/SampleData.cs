@@ -7,7 +7,6 @@ namespace Assignment;
 
 public class SampleData : ISampleData
 {
-
     // 1.
     public IEnumerable<string> CsvRows
         => File.ReadAllLines("People.csv").Skip(1);
@@ -16,16 +15,14 @@ public class SampleData : ISampleData
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         List<string> uniqueSortedStates = new();
-
         foreach (string row in CsvRows)
         {
-            string[] splitRow = row.Split(',');
-            if (!uniqueSortedStates.Contains(splitRow[6])) uniqueSortedStates.Add(splitRow[6]);
+            string[] splitrow = row.Split(',');
+            if (!uniqueSortedStates.Contains(splitrow[6])) uniqueSortedStates.Add(splitrow[6]);
         }
         uniqueSortedStates.Sort();
         return uniqueSortedStates;
     }
-
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
@@ -52,7 +49,7 @@ public class SampleData : ISampleData
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter)
+        Predicate<string> filter) 
     {
         List<IPerson> matches = People.Where(x => filter(x.EmailAddress)).ToList();
         List<(string, string)> nameList = new();

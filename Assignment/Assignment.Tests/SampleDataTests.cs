@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 
 namespace Assignment.Tests;
@@ -10,76 +11,101 @@ public class SampleDataTests
 {
     readonly SampleData data = new();
 
+    readonly List<Address> spokaneAddresses = new()
+    {
+        new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
+        new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
+        new Address("1702 S Grand Blvd", "Spokane", "AZ", "99203"),   //Manito Park
+        new Address("101 W 8th Ave", "Spokane", "IL", "99204"),       //Sacred Heart Hospital
+        new Address("601 E Riverside Ave", "Spokane", "TN", "99202"), //Catalyst Building
+        new Address("916 W 2nd Ave", "Spokane", "ID", "99201"),       //Wild Sage Bistro
+        new Address("501 W Park Pl", "Spokane", "CA", "99205"),       //Corbin Park
+        new Address("1810 N Greene St", "Spokane", "NY", "99217")     //Spokane Community College
+    };
+
     [TestMethod]
     public void SampleData_FillsListFromCSVRows_Success()
     {
-        //Act
+        // Act
         IEnumerable<string> items = data.CsvRows;
 
-        //Assert
+        // Assert
         Assert.AreEqual<int>(50, items.Count());
-    }
-
-
-    [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_FillsUniqueStates()
-    {
-        //Act
-        IEnumerable<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows();
-
-        //Assert
-        Assert.IsTrue(uniqueStates.Distinct().Count() == uniqueStates.Count());
     }
 
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted()
     {
-        //Arrange
-        bool nextElementAscendsPrevious = true;
+        // Arrange
+        List<string[]> testData = new();
+        foreach (string state in data.CsvRows.ToList())
+        {
+            testData.Add(state.Split(','));
+        }
+        List<string> testStates = new();
+        foreach (string[] row in testData)
+        {
+            if (!testStates.Contains(row[6])) testStates.Add(row[6]);
+        }
+        testStates.Sort();
 
-        //Act
+        // Act
         List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
-        //Assert
-        for (int i = 0; i < uniqueStates.Count - 1; i++)
+        // Assert
+        int count = 0;
+        foreach (string state in testStates)
         {
-            if (StringComparer.Ordinal.Compare(uniqueStates[i], uniqueStates[i + 1]) > 0)
-                nextElementAscendsPrevious = false;
+            Console.WriteLine(state + " = " + uniqueStates[count]);
+            Assert.AreEqual<string>(state.ToString(), uniqueStates[count].ToString());
+            count++;
         }
-
-        Assert.IsTrue(nextElementAscendsPrevious);
+        Assert.AreEqual<int>(count, uniqueStates.Count());
     }
 
     [TestMethod]
-    public void SpokaneAddresses_YieldOneDistinctState_True()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_FillsUniqueStates()
     {
-        //Arrange
+        // Act
+        IEnumerable<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows();
+
+        // Assert
+        Assert.IsTrue(uniqueStates.Distinct().Count() == uniqueStates.Count());
+    }
+
+    [TestMethod]
+    public void HardCodedAddresses_YieldOneDistinctState_True()
+    {
+        // Arrange
         List<string> uniqueStates = new();
-        
-        //Act
-        foreach (Address address in spokaneAddresses)
+
+        // Act
+        foreach (Address address in spokaneAddresses) 
         {
-            if (!uniqueStates.Contains(address.State)) uniqueStates.Add(address.State);
+            if (!uniqueStates.Contains(address.State))
+            {
+                uniqueStates.Add(address.State);
+            }
         }
 
-        //Assert
-        Assert.AreEqual<int>(1, uniqueStates.Count);
+        // Assert
+        Assert.AreEqual<int>(7, uniqueStates.Count);
     }
 
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsListAsSingleString()
     {
-        //Arrange
+        // Arrange
         int count = 0;
         bool sameElements = true;
         List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
-        //Act
+        // Act
         string uniqueStatesSorted = data.GetAggregateSortedListOfStatesUsingCsvRows();
 
-        //Assert
+        // Assert
         string[] testArray = uniqueStatesSorted.Split(',');
-        foreach (string state in uniqueStates)
+        foreach(string state in uniqueStates)
         {
             if (testArray[count] != state) sameElements = false;
             count++;
@@ -129,10 +155,10 @@ public class SampleDataTests
             Assert.AreEqual<string>(item.LastName, peopleProperty[count].LastName);
             Assert.AreEqual<string>(item.Address.ToString()!, peopleProperty[count].Address.ToString()!);
             Assert.AreEqual<string>(item.EmailAddress, peopleProperty[count].EmailAddress);
-            Console.WriteLine(string.Format("{0, 15} {1, 15} {2, 50} {3, 30}",
-                peopleProperty[count].FirstName,
-                peopleProperty[count].LastName,
-                peopleProperty[count].Address.ToString(),
+            Console.WriteLine(string.Format("{0, 15} {1, 15} {2, 50} {3, 30}", 
+                peopleProperty[count].FirstName, 
+                peopleProperty[count].LastName, 
+                peopleProperty[count].Address.ToString(), 
                 peopleProperty[count].EmailAddress));
             count++;
         }
@@ -151,7 +177,7 @@ public class SampleDataTests
         bool EmailPredicate(string email) => email.Equals(testEmail);
 
         // Act
-        List<(string, string)> matches = data.FilterByEmailAddress(EmailPredicate).ToList();
+        List<(string, string)> matches = data.FilterByEmailAddress(EmailPredicate).ToList(); 
 
         // Assert
         foreach ((string, string) item in matches)
@@ -179,16 +205,4 @@ public class SampleDataTests
             Assert.IsTrue(states.Contains(stateToken));
         }
     }
-
-    readonly List<Address> spokaneAddresses = new()
-    {
-        new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
-        new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
-        new Address("1702 S Grand Blvd", "Spokane", "WA", "99203"),   //Manito Park
-        new Address("101 W 8th Ave", "Spokane", "WA", "99204"),       //Sacred Heart Hospital
-        new Address("601 E Riverside Ave", "Spokane", "WA", "99202"), //Catalyst Building
-        new Address("916 W 2nd Ave", "Spokane", "WA", "99201"),       //Wild Sage Bistro
-        new Address("501 W Park Pl", "Spokane", "WA", "99205"),       //Corbin Park
-        new Address("1810 N Greene St", "Spokane", "WA", "99217")     //Spokane Community College
-    };
 }
