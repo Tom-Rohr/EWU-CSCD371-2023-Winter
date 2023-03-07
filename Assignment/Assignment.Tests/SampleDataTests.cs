@@ -41,8 +41,6 @@ public class SampleDataTests
         string[] uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
 
         // Assert
-    
-        testStates.SequenceEqual(uniqueStates);
         
         Assert.IsTrue(testStates.SequenceEqual(uniqueStates));
     }
