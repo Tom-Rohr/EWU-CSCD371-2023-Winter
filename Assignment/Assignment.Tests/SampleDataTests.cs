@@ -11,18 +11,6 @@ public class SampleDataTests
 {
     readonly SampleData data = new();
 
-    readonly List<Address> spokaneAddresses = new()
-    {
-        new Address("507 N Howard St", "Spokane", "WA", "99201"),     //River Front Park
-        new Address("803 W Mallon Ave","Spokane", "WA", "99201"),     //David's Pizza
-        new Address("1702 S Grand Blvd", "Spokane", "AZ", "99203"),   //Manito Park
-        new Address("101 W 8th Ave", "Spokane", "IL", "99204"),       //Sacred Heart Hospital
-        new Address("601 E Riverside Ave", "Spokane", "TN", "99202"), //Catalyst Building
-        new Address("916 W 2nd Ave", "Spokane", "ID", "99201"),       //Wild Sage Bistro
-        new Address("501 W Park Pl", "Spokane", "CA", "99205"),       //Corbin Park
-        new Address("1810 N Greene St", "Spokane", "NY", "99217")     //Spokane Community College
-    };
-
     [TestMethod]
     public void SampleData_FillsListFromCSVRows_Success()
     {
@@ -50,17 +38,13 @@ public class SampleDataTests
         testStates.Sort();
 
         // Act
-        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        string[] uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
 
         // Assert
-        int count = 0;
-        foreach (string state in testStates)
-        {
-            Console.WriteLine(state + " = " + uniqueStates[count]);
-            Assert.AreEqual<string>(state.ToString(), uniqueStates[count].ToString());
-            count++;
-        }
-        Assert.AreEqual<int>(count, uniqueStates.Count());
+    
+        testStates.SequenceEqual(uniqueStates);
+        
+        Assert.IsTrue(testStates.SequenceEqual(uniqueStates));
     }
 
     [TestMethod]
@@ -74,22 +58,28 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void HardCodedAddresses_YieldOneDistinctState_True()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_MatchesHardcodedTestList()
     {
         // Arrange
-        List<string> uniqueStates = new();
+        List<string> hardcodedStatesExpected = new() {
+            "AL", "AZ", "CA", "DC", "FL", "GA", "IN",
+            "KS", "LA", "MD", "MN", "MO", "MT", "NC",
+            "NE", "NH", "NV", "NY", "OR", "PA", "SC",
+            "TN", "TX", "UT", "VA", "WA", "WV" };
 
         // Act
-        foreach (Address address in spokaneAddresses) 
-        {
-            if (!uniqueStates.Contains(address.State))
-            {
-                uniqueStates.Add(address.State);
-            }
-        }
+        List<string> uniqueStates = data.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
 
         //Assert
-        Assert.AreEqual<int>(7, uniqueStates.Count);
+        int count = 0;
+        foreach (string state in uniqueStates)
+        {
+            Console.WriteLine(hardcodedStatesExpected[count] + " = " + state);
+            Assert.AreEqual<string>(hardcodedStatesExpected[count], state);
+            count++;
+        }
+
+        Assert.AreEqual<int>(hardcodedStatesExpected.Count, uniqueStates.Count);
     }
 
     [TestMethod]
@@ -105,7 +95,7 @@ public class SampleDataTests
 
         // Assert
         string[] testArray = uniqueStatesSorted.Split(',');
-        foreach(string state in uniqueStates)
+        foreach (string state in uniqueStates)
         {
             if (testArray[count] != state) sameElements = false;
             count++;
@@ -155,10 +145,10 @@ public class SampleDataTests
             Assert.AreEqual<string>(item.LastName, peopleProperty[count].LastName);
             Assert.AreEqual<string>(item.Address.ToString()!, peopleProperty[count].Address.ToString()!);
             Assert.AreEqual<string>(item.EmailAddress, peopleProperty[count].EmailAddress);
-            Console.WriteLine(string.Format("{0, 15} {1, 15} {2, 50} {3, 30}", 
-                peopleProperty[count].FirstName, 
-                peopleProperty[count].LastName, 
-                peopleProperty[count].Address.ToString(), 
+            Console.WriteLine(string.Format("{0, 15} {1, 15} {2, 50} {3, 30}",
+                peopleProperty[count].FirstName,
+                peopleProperty[count].LastName,
+                peopleProperty[count].Address.ToString(),
                 peopleProperty[count].EmailAddress));
             count++;
         }
@@ -177,7 +167,7 @@ public class SampleDataTests
         bool EmailPredicate(string email) => email.Equals(testEmail);
 
         // Act
-        List<(string, string)> matches = data.FilterByEmailAddress(EmailPredicate).ToList(); 
+        List<(string, string)> matches = data.FilterByEmailAddress(EmailPredicate).ToList();
 
         // Assert
         foreach ((string, string) item in matches)
