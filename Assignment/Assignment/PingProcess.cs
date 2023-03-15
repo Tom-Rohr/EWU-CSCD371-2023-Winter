@@ -21,9 +21,9 @@ public class PingProcess
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -39,13 +39,13 @@ public class PingProcess
         while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            Task<PingResult> task = Task.Run(() => RunTaskAsync(hostNameOrAddress));
+            Task<PingResult> task = Task.Run(() => RunTaskAsync(hostNameOrAddress), cancellationToken);
             return await task;
         }
     }
 
     async public Task<PingResult> RunAsync(
-       IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+        IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder stringBuilder = new();
         ConcurrentBag<string> hosts = new ConcurrentBag<string>();
