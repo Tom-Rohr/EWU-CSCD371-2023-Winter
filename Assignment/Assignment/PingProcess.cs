@@ -21,9 +21,9 @@ public class PingProcess
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+            (stringBuilder??=new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+        return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -36,7 +36,7 @@ public class PingProcess
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        while (true)
+        while(true)
         {
             cancellationToken.ThrowIfCancellationRequested();
             Task<PingResult> task = Task.Run(() => RunTaskAsync(hostNameOrAddress), cancellationToken);
@@ -53,12 +53,12 @@ public class PingProcess
             .AsParallel()
             .WithCancellation(cancellationToken)
             .Select(async item =>
-            {
-                Task<PingResult> task = RunAsync(item, cancellationToken);
-                hosts.Add(task.Result.StdOutput?.Trim()!);
-                await task.WaitAsync(default(CancellationToken));
-                return task.Result.ExitCode;
-            });
+        {
+            Task<PingResult> task = RunAsync(item, cancellationToken);
+            hosts.Add(task.Result.StdOutput?.Trim()!);
+            await task.WaitAsync(default(CancellationToken));
+            return task.Result.ExitCode;
+        });
         await Task.WhenAll(all);
         foreach (string line in hosts)
         {
@@ -71,9 +71,15 @@ public class PingProcess
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) => (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        Process process = await Task.Factory.StartNew(
+            () => RunProcessInternal(StartInfo, updateStdOutput, default, cancellationToken),
+            cancellationToken,
+            TaskCreationOptions.LongRunning,
+            TaskScheduler.Current);
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     private Process RunProcessInternal(
