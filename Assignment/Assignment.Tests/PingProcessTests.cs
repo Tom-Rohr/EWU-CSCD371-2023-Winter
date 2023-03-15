@@ -90,13 +90,13 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        CancellationTokenSource tokenSource = new CancellationTokenSource();
-        CancellationToken token = tokenSource.Token;
+        CancellationTokenSource tokenSource = new();
 
-        PingResult result = await Sut.RunAsync("localhost", token);
+        Task<PingResult> result = Task.Run(() => Sut.RunAsync("localhost", tokenSource.Token));
         tokenSource.Cancel();
+        result.Wait();
     }
 
     [TestMethod]
@@ -104,6 +104,21 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Use exception.Flatten()
+        CancellationTokenSource tokenSource = new();
+        try
+        {
+            Task<PingResult> result = Task.Run(() => Sut.RunAsync("localhost", tokenSource.Token));
+            tokenSource.Cancel();
+            result.Wait();
+        }
+        catch (AggregateException exception)
+        {
+            exception.Flatten();
+            foreach (Exception inner in exception.InnerExceptions)
+            {
+                throw inner;
+            }
+        }
     }
 
     [TestMethod]
@@ -111,10 +126,22 @@ public class PingProcessTests
     {
         // Pseudo Code - don't trust it!!!
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(AggregateException))]
+    public void RunAsync_MultipleHosts_CancelsOnRequest()
+    {
+        CancellationTokenSource tokenSource = new();
+
+        string[] hostNames = new string[] { "localhost", "google.com", "reddit.com/r/all", "netflix.com" };
+        Task<PingResult> result = Task.Run(() => Sut.RunAsync(hostNames, tokenSource.Token));
+        tokenSource.Cancel();
+        result.Wait();
     }
 
     [TestMethod]
