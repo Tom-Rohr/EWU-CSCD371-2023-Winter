@@ -21,9 +21,9 @@ public class PingProcess
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -36,7 +36,7 @@ public class PingProcess
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        while(true)
+        while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
             Task<PingResult> task = Task.Run(() => RunTaskAsync(hostNameOrAddress), cancellationToken);
@@ -48,17 +48,17 @@ public class PingProcess
         IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder stringBuilder = new();
-        ConcurrentBag<string> hosts = new ConcurrentBag<string>();
+        ConcurrentBag<string> hosts = new();
         ParallelQuery<Task<int>> all = hostNameOrAddresses
             .AsParallel()
             .WithCancellation(cancellationToken)
             .Select(async item =>
-        {
-            Task<PingResult> task = RunAsync(item, cancellationToken);
-            hosts.Add(task.Result.StdOutput?.Trim()!);
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
-        });
+            {
+                Task<PingResult> task = RunAsync(item, cancellationToken);
+                hosts.Add(task.Result.StdOutput?.Trim()!);
+                await task.WaitAsync(default(CancellationToken));
+                return task.Result.ExitCode;
+            });
         await Task.WhenAll(all);
         foreach (string line in hosts)
         {
